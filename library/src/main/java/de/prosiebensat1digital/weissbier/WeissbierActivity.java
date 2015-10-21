@@ -1,19 +1,17 @@
 package de.prosiebensat1digital.weissbier;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.preference.PreferenceActivity;
 
 /**
  * Created by Thomas Mann on 21/10/15.
  */
-public class WeissbierActivity extends AppCompatActivity {
+public class WeissbierActivity extends PreferenceActivity {
 
     @Override
     protected void onCreate(Bundle inBundle) {
         super.onCreate(inBundle);
 
-        getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new DefaultPreferencesFragment())
-                .commit();
+        addPreferencesFromResource(R.xml.preferences);
     }
 }
