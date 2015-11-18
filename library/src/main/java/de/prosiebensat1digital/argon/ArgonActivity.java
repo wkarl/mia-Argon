@@ -1,4 +1,4 @@
-package de.prosiebensat1digital.weissbier;
+package de.prosiebensat1digital.argon;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -6,7 +6,7 @@ import android.preference.PreferenceActivity;
 /**
  * Created by Thomas Mann on 21/10/15.
  */
-public class WeissbierActivity extends PreferenceActivity {
+public class ArgonActivity extends PreferenceActivity {
 
     @Override
     protected void onCreate(Bundle inBundle) {

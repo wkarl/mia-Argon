@@ -1,4 +1,4 @@
-package de.prosiebensat1digital.weissbier;
+package de.prosiebensat1digital.argondemo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

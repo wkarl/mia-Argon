@@ -1,8 +1,8 @@
-<manifest package="de.prosiebensat1digital.weissbier"
+<manifest package="de.prosiebensat1digital.argon"
           xmlns:android="http://schemas.android.com/apk/res/android">
     
     <application>
-        <activity android:name=".WeissbierActivity"
+        <activity android:name="de.prosiebensat1digital.argon.ArgonActivity"
                   android:launchMode="singleTop"/>
     
     </application>
