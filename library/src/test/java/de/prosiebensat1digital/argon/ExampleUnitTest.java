@@ -1,4 +1,4 @@
-package de.prosiebensat1digital.weissbierdemo;
+package de.prosiebensat1digital.argon;
 
 import org.junit.Test;
 

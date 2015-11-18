@@ -1,9 +1,9 @@
-package de.prosiebensat1digital.weissbierdemo;
+package de.prosiebensat1digital.argondemo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import de.prosiebensat1digital.weissbier.Weissbier;
+import de.prosiebensat1digital.argon.Argon;
 
 public class MainActivity extends AppCompatActivity {
     
@@ -17,12 +17,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        Weissbier.with(this).start();
+        Argon.with(this).start();
     }
 
     @Override
     protected void onStop() {
-        Weissbier.with(this).stop();
+        Argon.with(this).stop();
 
         super.onStop();
     }

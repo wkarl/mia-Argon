@@ -1,4 +1,4 @@
-package de.prosiebensat1digital.weissbier;
+package de.prosiebensat1digital.argon;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -11,23 +11,23 @@ import android.support.v4.app.NotificationCompat;
 /**
  * Created by Thomas Mann on 21/10/15.
  */
-public class Weissbier {
+public class Argon {
     private static final int NOTIFICATION_ID = 666;
     private static final int REQUEST_CODE    = 0;
     
     private Context mContext;
     
-    private Weissbier(Context inContext) {
+    private Argon(Context inContext) {
         mContext = inContext;
     }
 
     /* setup */
     
-    public static Weissbier with(@NonNull Context inContext) {
-        return new Weissbier(inContext);
+    public static Argon with(@NonNull Context inContext) {
+        return new Argon(inContext);
     }
     
-    public Weissbier start() {
+    public Argon start() {
         Notification notification = buildNotification();
         getNotificationManager().notify(NOTIFICATION_ID, notification);
 
@@ -55,7 +55,7 @@ public class Weissbier {
     }
 
     private PendingIntent buildContentIntent(){
-        Intent intent = new Intent(mContext, WeissbierActivity.class);
+        Intent intent = new Intent(mContext, ArgonActivity.class);
 
         return PendingIntent.getActivity(mContext, REQUEST_CODE, intent, 0);
     }
