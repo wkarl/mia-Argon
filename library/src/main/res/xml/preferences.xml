@@ -2,9 +2,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <CheckBoxPreference
-        android:key="key"
-        android:title="title"
-        android:summary="summary"
+        android:key="text"
+        android:title="Text"
+        android:summary="Show 'Hello World'"
         android:defaultValue="true" />
 
 </PreferenceScreen>
