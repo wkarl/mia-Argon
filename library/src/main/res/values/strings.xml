@@ -7,4 +7,6 @@
         ]]>
     </string>
     <string name="config_hint_title">SharedPreferences configuration missing</string>
+    <string name="notification_text">Let\'s do some debug configuring!</string>
+    <string name="notification_title">Debug Mode</string>
 </resources>
