@@ -1,6 +1,5 @@
 package de.prosiebensat1digital.argon;
 
-import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,6 +10,8 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 
+import com.jakewharton.processphoenix.ProcessPhoenix;
+
 /**
  * Created by Thomas Mann on 21/10/15.
  */
@@ -20,30 +21,25 @@ public class Argon {
     private static final int NOTIFICATION_ID = 666;
     private static final int REQUEST_CODE    = 0;
 
-    private Activity mActivity;
+    private Context mContext;
 
-    private Argon(Activity inActivity) {
-        mActivity = inActivity;
+    private Argon(Context inContext) {
+        mContext = inContext;
     }
 
     /* setup */
 
-    public static Argon with(@NonNull Activity inActivity) {
-        return new Argon(inActivity);
+    public static Argon with(@NonNull Context inContext) {
+        return new Argon(inContext);
     }
 
     public Argon start() {
         Notification notification = buildNotification();
         getNotificationManager().notify(NOTIFICATION_ID, notification);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mActivity);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         if (prefs.getBoolean(ARGON_RESTART_FLAG, false)) {
             prefs.edit().putBoolean(ARGON_RESTART_FLAG, false).apply();
-            mActivity.findViewById(android.R.id.content).post(new Runnable() {
-                @Override
-                public void run() {
-                    mActivity.recreate();
-                }
-            });
+            ProcessPhoenix.triggerRebirth(mContext);
         }
         return this;
     }
@@ -55,42 +51,42 @@ public class Argon {
     /* helpers */
 
     private NotificationManager getNotificationManager() {
-        return (NotificationManager) mActivity.getSystemService(Context.NOTIFICATION_SERVICE);
+        return (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
     private Notification buildNotification() {
-        return new NotificationCompat.Builder(mActivity)
+        return new NotificationCompat.Builder(mContext)
                 .setOngoing(true)
                 .setSmallIcon(R.drawable.ic_debug)
-                .setContentTitle(mActivity.getString(R.string.notification_title))
-                .setContentText(mActivity.getString(R.string.notification_text))
+                .setContentTitle(mContext.getString(R.string.notification_title))
+                .setContentText(mContext.getString(R.string.notification_text))
                 .setContentIntent(buildContentIntent())
                 .build();
     }
 
     private PendingIntent buildContentIntent(){
-        Intent intent = new Intent(mActivity, ArgonActivity.class);
+        Intent intent = new Intent(mContext, ArgonActivity.class);
 
-        return PendingIntent.getActivity(mActivity, REQUEST_CODE, intent, 0);
+        return PendingIntent.getActivity(mContext, REQUEST_CODE, intent, 0);
     }
 
     public String getString(String key, String defaultValue) {
-        return PreferenceManager.getDefaultSharedPreferences(mActivity).getString(key, defaultValue);
+        return PreferenceManager.getDefaultSharedPreferences(mContext).getString(key, defaultValue);
     }
 
     public boolean getBoolean(String key, boolean defaultValue) {
-        return PreferenceManager.getDefaultSharedPreferences(mActivity).getBoolean(key, defaultValue);
+        return PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(key, defaultValue);
     }
 
     public int getInt(String key, int defaultValue) {
-        return PreferenceManager.getDefaultSharedPreferences(mActivity).getInt(key, defaultValue);
+        return PreferenceManager.getDefaultSharedPreferences(mContext).getInt(key, defaultValue);
     }
 
     public float getFloat(String key, float defaultValue) {
-        return PreferenceManager.getDefaultSharedPreferences(mActivity).getFloat(key, defaultValue);
+        return PreferenceManager.getDefaultSharedPreferences(mContext).getFloat(key, defaultValue);
     }
 
     public long getLong(String key, long defaultValue) {
-        return PreferenceManager.getDefaultSharedPreferences(mActivity).getLong(key, defaultValue);
+        return PreferenceManager.getDefaultSharedPreferences(mContext).getLong(key, defaultValue);
     }
 }
