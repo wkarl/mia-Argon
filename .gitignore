@@ -1,7 +1,11 @@
+# Build folder
+build
+
+# Android Studio local
+local.properties
 .gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
+.idea
+*.iml
+
+# MacOS
 .DS_Store
-/build
-/captures

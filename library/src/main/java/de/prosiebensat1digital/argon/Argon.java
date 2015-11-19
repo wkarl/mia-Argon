@@ -12,6 +12,7 @@ import android.support.v4.app.NotificationCompat;
  * Created by Thomas Mann on 21/10/15.
  */
 public class Argon {
+    public static final String ARGON_PREFERENCES = "de.prosiebensat1digital.argon.PREFERENCES";
     private static final int NOTIFICATION_ID = 666;
     private static final int REQUEST_CODE    = 0;
     
