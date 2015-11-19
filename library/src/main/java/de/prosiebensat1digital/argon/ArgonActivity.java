@@ -20,12 +20,6 @@ public class ArgonActivity extends PreferenceActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ProcessPhoenix.triggerRebirth(this);
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
@@ -34,7 +28,14 @@ public class ArgonActivity extends PreferenceActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        finish(); // There is only one menu item, no need to distinguish
+        // There is only one menu item, no need to distinguish
+        ProcessPhoenix.triggerRebirth(this);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        ProcessPhoenix.triggerRebirth(this);
     }
 }
