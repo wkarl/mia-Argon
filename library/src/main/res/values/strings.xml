@@ -3,8 +3,7 @@
     <string name="config_hint">
         <![CDATA[Please define an activity with the following tags in your manifest:
         \n\n- intent-filter with action \"de.prosiebensat1digital.argon.PREFERENCES\"
-        \n- meta-data with android:name=\"android.preference\" and android:resource=\"@xml/your_preferences_file\"
-        ]]>
+        \n- meta-data with android:name=\"android.preference\" and android:resource=\"@xml/your_preferences_file\"]]>
     </string>
     <string name="config_hint_title">SharedPreferences configuration missing</string>
     <string name="notification_text">Let\'s do some debug configuring!</string>
