@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 
 /**
  * Created by Thomas Mann on 21/10/15.
@@ -16,6 +17,7 @@ public class ArgonActivity extends PreferenceActivity {
         super.onCreate(inBundle);
         try {
             this.addPreferencesFromIntent(new Intent(Argon.ARGON_PREFERENCES));
+            PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean(Argon.ARGON_RESTART_FLAG, true).apply();
         } catch (NullPointerException e) {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.config_hint_title)

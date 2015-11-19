@@ -9,13 +9,12 @@ import de.prosiebensat1digital.argon.Argon;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mText;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mText = (TextView) findViewById(R.id.text);
+        TextView text = (TextView) findViewById(R.id.text);
+        text.setText(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("text", true) ? "Hello World!" : null);
     }
 
     @Override
@@ -23,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         Argon.with(this).start();
-
-        mText.setText(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("text", true) ? "Hello World!" : null);
     }
 
     @Override
