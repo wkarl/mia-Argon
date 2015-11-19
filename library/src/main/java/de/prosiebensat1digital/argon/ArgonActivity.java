@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
@@ -43,5 +46,18 @@ public class ArgonActivity extends PreferenceActivity {
     protected void onDestroy() {
         super.onDestroy();
         ProcessPhoenix.triggerRebirth(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish(); // There is only one menu item, no need to distinguish
+        return true;
     }
 }
