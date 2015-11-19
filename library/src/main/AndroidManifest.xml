@@ -1,10 +1,12 @@
-<manifest package="de.prosiebensat1digital.argon"
-          xmlns:android="http://schemas.android.com/apk/res/android">
-    
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.prosiebensat1digital.argon">
+
     <application>
-        <activity android:name="de.prosiebensat1digital.argon.ArgonActivity"
-                  android:launchMode="singleTop"/>
-    
+        <activity
+            android:name="de.prosiebensat1digital.argon.ArgonActivity"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.DeviceDefault" />
     </application>
 
 </manifest>
