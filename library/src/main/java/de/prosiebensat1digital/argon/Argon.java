@@ -13,20 +13,22 @@ import android.support.v4.app.NotificationCompat;
  * Created by Thomas Mann on 21/10/15.
  */
 public class Argon {
-    static final String ARGON_PREFERENCES = "de.prosiebensat1digital.argon.PREFERENCES";
+    static final String ARGON_PREFERENCES_RESOURCE = "de.prosiebensat1digital.argon.PREFERENCES_RESOURCE";
     private static final int NOTIFICATION_ID = 666;
     private static final int REQUEST_CODE    = 0;
 
     private Context mContext;
+    private int mPreferenceResourceId;
 
-    private Argon(Context inContext) {
+    private Argon(Context inContext, int preferenceResourceId) {
         mContext = inContext;
+        mPreferenceResourceId = preferenceResourceId;
     }
 
     /* setup */
 
-    public static Argon with(@NonNull Context inContext) {
-        return new Argon(inContext);
+    public static Argon with(@NonNull Context inContext, int preferenceResourceId) {
+        return new Argon(inContext, preferenceResourceId);
     }
 
     public Argon start() {
@@ -57,7 +59,8 @@ public class Argon {
 
     private PendingIntent buildContentIntent(){
         Intent intent = new Intent(mContext, ArgonActivity.class);
-
+        intent.putExtra(ARGON_PREFERENCES_RESOURCE, mPreferenceResourceId);
+        intent.setAction("ArgonActivity");
         return PendingIntent.getActivity(mContext, REQUEST_CODE, intent, 0);
     }
 

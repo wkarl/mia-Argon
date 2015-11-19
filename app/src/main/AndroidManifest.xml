@@ -16,13 +16,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ArgonConfigActivity">
-            <intent-filter>
-                <action android:name="de.prosiebensat1digital.argon.PREFERENCES" />
-            </intent-filter>
-            <meta-data
-                android:name="android.preference"
-                android:resource="@xml/preferences" />
-        </activity>
     </application>
 </manifest>
