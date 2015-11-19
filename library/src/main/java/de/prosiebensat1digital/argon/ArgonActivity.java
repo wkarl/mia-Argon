@@ -1,11 +1,14 @@
 package de.prosiebensat1digital.argon;
 
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+
+import com.jakewharton.processphoenix.ProcessPhoenix;
 
 /**
  * Created by Thomas Mann on 21/10/15.
@@ -17,7 +20,6 @@ public class ArgonActivity extends PreferenceActivity {
         super.onCreate(inBundle);
         try {
             this.addPreferencesFromIntent(new Intent(Argon.ARGON_PREFERENCES));
-            PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean(Argon.ARGON_RESTART_FLAG, true).apply();
         } catch (NullPointerException e) {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.config_hint_title)
@@ -35,5 +37,11 @@ public class ArgonActivity extends PreferenceActivity {
                     })
                     .show();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ProcessPhoenix.triggerRebirth(this);
     }
 }
