@@ -1,5 +1,6 @@
 package de.prosiebensat1digital.argon;
 
+import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -17,6 +18,8 @@ public class Argon {
     private static final int NOTIFICATION_ID = 666;
     private static final int REQUEST_CODE    = 0;
 
+    private static Argon sInstance;
+
     private Context mContext;
     private int mPreferenceResourceId;
 
@@ -27,8 +30,15 @@ public class Argon {
 
     /* setup */
 
-    public static Argon with(@NonNull Context inContext, int preferenceResourceId) {
-        return new Argon(inContext, preferenceResourceId);
+    public static void init(@NonNull Application application, int preferenceResourceId) {
+        sInstance = new Argon(application, preferenceResourceId);
+    }
+
+    public static Argon getInstance() {
+        if (sInstance == null) {
+            throw new IllegalStateException("Please set up Argon in your Application class using Argon.init(Application, int).");
+        }
+        return sInstance;
     }
 
     public Argon start() {
