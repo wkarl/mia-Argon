@@ -21,12 +21,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        Argon.with(this, R.xml.preferences).start();
+        Argon.getInstance().start();
     }
 
     @Override
     protected void onStop() {
-        Argon.with(this, R.xml.preferences).stop();
+        Argon.getInstance().stop();
 
         super.onStop();
     }
