@@ -16,6 +16,7 @@ import com.jakewharton.processphoenix.ProcessPhoenix;
  * Created by Thomas Mann on 21/10/15.
  */
 public class ArgonActivity extends PreferenceActivity {
+    static final String FEATURE_FLAGS = "feature_flags";
 
     @Override
     protected void onCreate(Bundle inBundle) {
@@ -24,6 +25,20 @@ public class ArgonActivity extends PreferenceActivity {
         getPreferenceManager().setSharedPreferencesName(Argon.ARGON_PREFERENCES);
         getPreferenceManager().setSharedPreferencesMode(Context.MODE_PRIVATE);
         addPreferencesFromResource(getIntent().getIntExtra(Argon.ARGON_PREFERENCES_RESOURCE, -1));
+
+
+        Bundle featureFlags = getIntent().getBundleExtra(FEATURE_FLAGS);
+        if (inBundle == null && featureFlags != null) {
+            SharedPreferences prefs = getSharedPreferences(Argon.ARGON_PREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            for (String flag : featureFlags.keySet()) {
+                if (prefs.contains(flag)) {
+                    editor.putBoolean(flag, featureFlags.getBoolean(flag));
+                }
+            }
+            editor.apply();
+            ProcessPhoenix.triggerRebirth(this);
+        }
     }
 
     @Override

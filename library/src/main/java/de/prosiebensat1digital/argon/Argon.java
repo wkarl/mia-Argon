@@ -6,8 +6,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
+
+import java.util.Map;
 
 /**
  * Created by Thomas Mann on 21/10/15.
@@ -92,5 +95,18 @@ public class Argon {
 
     public long getLong(String key, long defaultValue) {
         return mContext.getSharedPreferences(ARGON_PREFERENCES, Context.MODE_PRIVATE).getLong(key, defaultValue);
+    }
+
+    public void setFeatureFlags(Map<String, Boolean> featureFlags) {
+        Intent intent = new Intent(mContext, ArgonActivity.class);
+        Bundle flagsBundle = new Bundle();
+
+        for (String key : featureFlags.keySet()) {
+            flagsBundle.putBoolean(key, featureFlags.get(key));
+        }
+        intent.putExtra(ArgonActivity.FEATURE_FLAGS, flagsBundle);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(ARGON_PREFERENCES_RESOURCE, mPreferenceResourceId);
+        mContext.startActivity(intent);
     }
 }
