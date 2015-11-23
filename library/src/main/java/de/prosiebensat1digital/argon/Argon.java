@@ -101,8 +101,8 @@ public class Argon {
         Intent intent = new Intent(mContext, ArgonActivity.class);
         Bundle flagsBundle = new Bundle();
 
-        for (String key : featureFlags.keySet()) {
-            flagsBundle.putBoolean(key, featureFlags.get(key));
+        for (Map.Entry<String, Boolean> entry : featureFlags.entrySet()) {
+            flagsBundle.putBoolean(entry.getKey(), entry.getValue());
         }
         intent.putExtra(ArgonActivity.FEATURE_FLAGS, flagsBundle);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
