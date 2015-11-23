@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -32,19 +33,24 @@ public class Argon {
     private final int mNotificationIconRes;
     @StringRes
     private final int mTitleRes;
+    @ColorRes
+    private final int mColorRes;
     
     private Argon(@NonNull Context inContext, @XmlRes int preferenceResourceId,
-                  @DrawableRes int notificationIconRes, @StringRes int titleRes) {
+                  @DrawableRes int notificationIconRes, @StringRes int titleRes,
+                  @ColorRes int colorRes) {
         mContext = inContext;
         mPreferenceResourceId = preferenceResourceId;
         mTitleRes = titleRes;
         mNotificationIconRes = notificationIconRes;
+        mColorRes = colorRes;
     }
     
     /* setup */
     public static void init(@NonNull Application application, @XmlRes int preferenceResourceId,
-                            @DrawableRes int notificationIconRes, @StringRes int titleRes) {
-        sInstance = new Argon(application, preferenceResourceId, notificationIconRes, titleRes);
+                            @DrawableRes int notificationIconRes, @StringRes int titleRes,
+                            @ColorRes int colorRes) {
+        sInstance = new Argon(application, preferenceResourceId, notificationIconRes, titleRes, colorRes);
     }
     
     public static Argon getInstance() {
@@ -76,6 +82,7 @@ public class Argon {
                 .setSmallIcon(mNotificationIconRes)
                 .setContentTitle(mContext.getString(mTitleRes))
                 .setContentText(mContext.getString(R.string.notification_text))
+                .setColor(mContext.getColor(mColorRes))
                 .setContentIntent(buildContentIntent())
                 .build();
     }
