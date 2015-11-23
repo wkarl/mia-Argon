@@ -1,11 +1,13 @@
 package de.prosiebensat1digital.argon;
 
+import android.annotation.TargetApi;
 import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -77,12 +79,16 @@ public class Argon {
     }
     
     private Notification buildNotification() {
+        int color = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                ? mContext.getColor(mColorRes)
+                : mContext.getResources().getColor(mColorRes);
+        
         return new NotificationCompat.Builder(mContext)
                 .setOngoing(true)
                 .setSmallIcon(mNotificationIconRes)
                 .setContentTitle(mContext.getString(mTitleRes))
                 .setContentText(mContext.getString(R.string.notification_text))
-                .setColor(mContext.getColor(mColorRes))
+                .setColor(color)
                 .setContentIntent(buildContentIntent())
                 .build();
     }
