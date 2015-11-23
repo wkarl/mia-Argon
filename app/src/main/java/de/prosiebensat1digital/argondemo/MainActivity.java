@@ -1,20 +1,25 @@
 package de.prosiebensat1digital.argondemo;
 
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import de.prosiebensat1digital.argon.Argon;
 
 public class MainActivity extends AppCompatActivity {
+    TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView text = (TextView) findViewById(R.id.text);
-        text.setText(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("text", true) ? "Hello World!" : null);
+        mTextView = (TextView) findViewById(R.id.text);
+        mTextView.setText(Argon.getInstance().getBoolean("text", true) ? "Hello World!" : null);
     }
 
     @Override
@@ -29,5 +34,11 @@ public class MainActivity extends AppCompatActivity {
         Argon.getInstance().stop();
 
         super.onStop();
+    }
+
+    public void toggleText(View view) {
+        Map<String, Boolean> flags = new HashMap<>();
+        flags.put("text", TextUtils.isEmpty(mTextView.getText()));
+        Argon.getInstance().setFeatureFlags(flags);
     }
 }
