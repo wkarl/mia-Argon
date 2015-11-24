@@ -9,6 +9,10 @@ public class ArgonDemoApplication extends Application {
     public void onCreate() {
         super.onCreate();
     
-        Argon.init(this, R.xml.preferences, R.drawable.ic_debug, R.string.app_name, R.color.colorPrimary);
+        Argon.init(this, R.xml.preferences)
+                .setIcon(R.drawable.ic_debug)
+                .setTitle(R.string.notification_title)
+                .setText(R.string.notification_text)
+                .setColor(R.color.colorAccent);
     }
 }

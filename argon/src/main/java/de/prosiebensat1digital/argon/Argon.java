@@ -1,6 +1,5 @@
 package de.prosiebensat1digital.argon;
 
-import android.annotation.TargetApi;
 import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -27,34 +26,20 @@ public class Argon {
     
     private static Argon sInstance;
     
-    private Context mContext;
-    
+    private final Context mContext;
     @XmlRes
-    private       int mPreferenceResourceId;
+    private final int     mPreferenceResourceId;
+    
     @DrawableRes
-    private final int mNotificationIconRes;
+    private int mIconRes = R.drawable.ic_bug_report_white_24dp;
     @StringRes
-    private final int mTitleRes;
+    private int mTitleRes = R.string.app_name;
+    @StringRes
+    private int mTextRes = R.string.text;
     @ColorRes
-    private final int mColorRes;
+    private int mColorRes = R.color.colorPrimary;
     
-    private Argon(@NonNull Context inContext, @XmlRes int preferenceResourceId,
-                  @DrawableRes int notificationIconRes, @StringRes int titleRes,
-                  @ColorRes int colorRes) {
-        mContext = inContext;
-        mPreferenceResourceId = preferenceResourceId;
-        mTitleRes = titleRes;
-        mNotificationIconRes = notificationIconRes;
-        mColorRes = colorRes;
-    }
-    
-    /* setup */
-    public static void init(@NonNull Application application, @XmlRes int preferenceResourceId,
-                            @DrawableRes int notificationIconRes, @StringRes int titleRes,
-                            @ColorRes int colorRes) {
-        sInstance = new Argon(application, preferenceResourceId, notificationIconRes, titleRes, colorRes);
-    }
-    
+    /* Singleton methods */
     public static Argon getInstance() {
         if (sInstance == null) {
             throw new IllegalStateException("Please set up Argon in your Application class using Argon.init(Application, int).");
@@ -62,6 +47,38 @@ public class Argon {
         return sInstance;
     }
     
+    public static Argon init(@NonNull Application application, @XmlRes int preferenceResourceId) {
+        sInstance = new Argon(application, preferenceResourceId);
+        return sInstance;
+    }
+    
+    private Argon(@NonNull Context inContext, @XmlRes int preferenceResourceId) {
+        mContext = inContext;
+        mPreferenceResourceId = preferenceResourceId;
+    }
+    
+    /* Builder-like pattern */
+    public Argon setIcon(@DrawableRes int iconRes) {
+        mIconRes = iconRes;
+        return this;
+    }
+    
+    public Argon setTitle(@StringRes int titleRes) {
+        mTitleRes = titleRes;
+        return this;
+    }
+    
+    public Argon setText(@StringRes int textRes) {
+        mTextRes = textRes;
+        return this;
+    }
+    
+    public Argon setColor(@ColorRes int colorRes) {
+        mColorRes = colorRes;
+        return this;
+    }
+    
+    /* Lifecycle */
     public Argon start() {
         Notification notification = buildNotification();
         getNotificationManager().notify(NOTIFICATION_ID, notification);
@@ -71,23 +88,26 @@ public class Argon {
     public void stop() {
         getNotificationManager().cancel(NOTIFICATION_ID);
     }
-
-    /* helpers */
     
+    /* Notification helpers */
     private NotificationManager getNotificationManager() {
         return (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
     }
     
     private Notification buildNotification() {
+        
+        String title = mContext.getString(mTitleRes);
+        String text  = mContext.getString(mTextRes);
+        
         int color = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
                 ? mContext.getColor(mColorRes)
                 : mContext.getResources().getColor(mColorRes);
         
         return new NotificationCompat.Builder(mContext)
                 .setOngoing(true)
-                .setSmallIcon(mNotificationIconRes)
-                .setContentTitle(mContext.getString(mTitleRes))
-                .setContentText(mContext.getString(R.string.notification_text))
+                .setSmallIcon(mIconRes)
+                .setContentTitle(title)
+                .setContentText(text)
                 .setColor(color)
                 .setContentIntent(buildContentIntent())
                 .build();
@@ -100,6 +120,7 @@ public class Argon {
         return PendingIntent.getActivity(mContext, REQUEST_CODE, intent, 0);
     }
     
+    /* Getters and setters */
     public String getString(String key, String defaultValue) {
         return mContext.getSharedPreferences(ARGON_PREFERENCES, Context.MODE_PRIVATE).getString(key, defaultValue);
     }
