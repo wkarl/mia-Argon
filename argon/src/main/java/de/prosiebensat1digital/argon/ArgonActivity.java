@@ -10,9 +10,6 @@ import android.view.MenuItem;
 
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
-/**
- * Created by Thomas Mann on 21/10/15.
- */
 public class ArgonActivity extends PreferenceActivity {
     static final String FEATURE_FLAGS = "feature_flags";
 
@@ -23,7 +20,6 @@ public class ArgonActivity extends PreferenceActivity {
         getPreferenceManager().setSharedPreferencesName(Argon.ARGON_PREFERENCES);
         getPreferenceManager().setSharedPreferencesMode(Context.MODE_PRIVATE);
         addPreferencesFromResource(getIntent().getIntExtra(Argon.ARGON_PREFERENCES_RESOURCE, -1));
-
 
         Bundle featureFlags = getIntent().getBundleExtra(FEATURE_FLAGS);
         if (inBundle == null && featureFlags != null) {
