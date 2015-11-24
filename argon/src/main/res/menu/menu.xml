@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+      xmlns:tools="http://schemas.android.com/tools">
     <item
         android:id="@+id/action_restart"
-        android:icon="@drawable/ic_restart"
+        android:icon="@drawable/ic_apply"
         android:showAsAction="always"
-        android:title="Restart process"
-        tools:ignore="AppCompatResource" />
+        android:title="@string/apply"
+        tools:ignore="AppCompatResource"/>
 </menu>
