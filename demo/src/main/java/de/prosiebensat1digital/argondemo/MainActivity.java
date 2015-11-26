@@ -6,20 +6,23 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import de.prosiebensat1digital.argon.Argon;
 
 public class MainActivity extends AppCompatActivity {
-    TextView mTextView;
+    TextView    mTextView;
+    ConfigModel mConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTextView = (TextView) findViewById(R.id.text);
-        mTextView.setText(Argon.getInstance().getBoolean("text", true) ? "Hello World!" : null);
+        mTextView = (TextView) findViewById(R.id.headline);
+        mConfig = (ConfigModel) Argon.getInstance().getConfig();
+        mTextView.setText(mConfig.showHeadline ? "Hello World!" : null);
+        ((TextView) findViewById(R.id.text)).setText(mConfig.text);
+        ((TextView) findViewById(R.id.integerValue)).setText(Integer.toString(mConfig.intValue));
+        ((TextView) findViewById(R.id.floatValue)).setText(Float.toString(mConfig.floatValue));
+        ((TextView) findViewById(R.id.longValue)).setText(Long.toString(mConfig.longValue));
     }
 
     @Override
@@ -36,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    public void toggleText(View view) {
-        Map<String, Boolean> flags = new HashMap<>();
-        flags.put("text", TextUtils.isEmpty(mTextView.getText()));
-        Argon.getInstance().setFeatureFlags(flags);
+    public void toggleHeadline(View view) {
+        mConfig.showHeadline = TextUtils.isEmpty(mTextView.getText());
+        Argon.getInstance().updateConfig(mConfig);
+        Argon.getInstance().restartProcess();
     }
 }
