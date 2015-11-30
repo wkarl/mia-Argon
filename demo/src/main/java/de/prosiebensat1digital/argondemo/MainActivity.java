@@ -9,7 +9,7 @@ import android.widget.TextView;
 import de.prosiebensat1digital.argon.Argon;
 
 public class MainActivity extends AppCompatActivity {
-    TextView    mTextView;
+    TextView mTextView;
     ConfigModel mConfig;
 
     @Override
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTextView = (TextView) findViewById(R.id.headline);
-        mConfig = (ConfigModel) Argon.getInstance().getConfig();
+        mConfig = Argon.getInstance().getConfig();
         mTextView.setText(mConfig.showHeadline ? "Hello World!" : null);
         ((TextView) findViewById(R.id.text)).setText(mConfig.text);
         ((TextView) findViewById(R.id.integerValue)).setText(Integer.toString(mConfig.intValue));

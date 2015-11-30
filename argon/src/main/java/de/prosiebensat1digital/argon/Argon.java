@@ -48,17 +48,18 @@ public class Argon {
      * @param config
      * @return
      */
-    public static Argon init(@NonNull Application application, Object config) {
+    public static <T> Argon init(@NonNull Application application, T config, Class<T> clazz) {
         if (sInstance != null) {
             throw new IllegalStateException("Argon cannot be re-initialised.");
         }
-        sInstance = new Argon(application, config);
+        sInstance = new Argon(application, config, clazz);
+
         return sInstance;
     }
 
-    private Argon(@NonNull Context inContext, Object config) {
+    private <T> Argon(@NonNull Context inContext, T config, Class<T> clazz) {
         mContext = inContext;
-        mConfigStore = new ConfigStore(inContext, config);
+        mConfigStore = new ConfigStore<>(inContext, config, clazz);
     }
 
     /* Builder-like pattern */
@@ -122,12 +123,14 @@ public class Argon {
         return PendingIntent.getActivity(mContext, REQUEST_CODE, intent, 0);
     }
 
-    public void updateConfig(Object config) {
+    public <T> void updateConfig(T config) {
+        //noinspection unchecked
         mConfigStore.update(config);
     }
 
-    public Object getConfig() {
-        return mConfigStore.getConfig();
+    public <T> T getConfig() {
+        //noinspection unchecked
+        return (T) mConfigStore.getConfig();
     }
 
     public void restartProcess() {
