@@ -124,9 +124,8 @@ public class Argon {
         mConfigStore.update(config);
     }
     
-    @SuppressWarnings("unchecked")
     public <T> T getConfig() {
-        return (T) mConfigStore.getConfig();
+        return mConfigStore.getConfig();
     }
     
     public void restartProcess() {

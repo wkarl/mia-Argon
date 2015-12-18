@@ -26,7 +26,7 @@ public class ConfigStore {
         mConfig = savedConfig;
     }
     
-    void update(Object config) {
+    <T> void update(T config) {
         Gson gson = new Gson();
         mPreferences.edit().putString(JSON_PREFERENCE, gson.toJson(config)).apply();
         
@@ -42,7 +42,8 @@ public class ConfigStore {
         }
     }
     
-    Object getConfig() {
-        return mConfig;
+    @SuppressWarnings("unchecked")
+    <T> T getConfig() {
+        return (T) mConfig;
     }
 }
