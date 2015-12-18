@@ -19,8 +19,8 @@ public class ArgonDemoApplication extends Application {
                 "\"floatValue\": 0.5823\n" +
                 "}";
         Gson gson = new Gson();
-        ConfigModel config = gson.fromJson(json, ConfigModel.class);
-        Argon.init(this, config, ConfigModel.class)
+        ConfigModel defaultConfig = gson.fromJson(json, ConfigModel.class);
+        Argon.init(this, ConfigModel.class, defaultConfig)
                 .setIcon(R.drawable.ic_debug)
                 .setTitle(R.string.notification_title)
                 .setText(R.string.notification_text)

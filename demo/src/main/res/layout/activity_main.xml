@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    tools:context=".MainActivity">
     
     <TextView
         android:id="@+id/headline"
@@ -17,38 +17,38 @@
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
         android:textStyle="bold"/>
-
+    
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/stringText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"/>
-
-
+    
+    
     <TextView
-        android:id="@+id/integerValue"
+        android:id="@+id/integerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"/>
-
-
+    
+    
     <TextView
-        android:id="@+id/floatValue"
+        android:id="@+id/floatText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"/>
-
-
+    
+    
     <TextView
-        android:id="@+id/longValue"
+        android:id="@+id/longText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"/>
-
+    
     <Button
+        android:id="@+id/toggleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="toggleHeadline"
-        android:text="Toggle Headline"
-        />
+        android:text="Toggle Headline"/>
+    
 </LinearLayout>
