@@ -41,20 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     
     @Override
-    protected void onStart() {
-        super.onStart();
-        
-        Argon.getInstance().start();
-    }
-    
-    @Override
-    protected void onStop() {
-        Argon.getInstance().stop();
-        
-        super.onStop();
-    }
-    
-    @Override
     public void onClick(View v) {
         mConfig.showHeadline = TextUtils.isEmpty(mHeadlineView.getText());
         
