@@ -12,24 +12,30 @@
     tools:context=".MainActivity">
     
     <TextView
-        android:id="@+id/headline"
+        android:id="@+id/stringText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:textStyle="bold"/>
+        android:paddingBottom="10dp"/>
     
-    <Button
-        android:id="@+id/detailsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/show_details"
-        android:onClick="goToDetails"/>
     
-    <Button
-        android:id="@+id/toggleButton"
+    <TextView
+        android:id="@+id/integerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Toggle Headline"
-        android:onClick="toggleHeadline"/>
+        android:paddingBottom="10dp"/>
+    
+    
+    <TextView
+        android:id="@+id/floatText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"/>
+    
+    
+    <TextView
+        android:id="@+id/longText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"/>
 
 </LinearLayout>
