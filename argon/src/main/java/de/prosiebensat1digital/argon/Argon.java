@@ -36,7 +36,7 @@ public class Argon {
     private int mColorRes = R.color.colorPrimary;
 
     /* Singleton methods */
-    public static Argon getInstance() {
+    private static Argon getInstance() {
         if (sInstance == null) {
             throw new IllegalStateException("Please set up Argon in your Application class using Argon.init(Application, int).");
         }
@@ -55,7 +55,7 @@ public class Argon {
         return sInstance;
     }
 
-    public <T> Argon(@NonNull Application application, Class<T> tClass, T defaultConfig) {
+    private <T> Argon(@NonNull Application application, Class<T> tClass, T defaultConfig) {
         mContext = application;
         mConfigStore = new ConfigStore(application, tClass, defaultConfig);
         application.registerActivityLifecycleCallbacks(new ArgonActivityLifecycleCallbacks());
@@ -124,16 +124,16 @@ public class Argon {
         return PendingIntent.getActivity(mContext, REQUEST_CODE, intent, 0);
     }
 
-    public <T> void updateConfig(T config) {
-        mConfigStore.update(config);
+    public static <T> void updateConfig(T config) {
+        getInstance().mConfigStore.update(config);
     }
 
-    public <T> T getConfig() {
-        return mConfigStore.getConfig();
+    public static <T> T getConfig() {
+        return getInstance().mConfigStore.getConfig();
     }
 
-    public void restartProcess() {
-        ProcessPhoenix.triggerRebirth(mContext);
+    public static void restartProcess() {
+        ProcessPhoenix.triggerRebirth(getInstance().mContext);
     }
 
     private class ArgonActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {

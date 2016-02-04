@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         
         // Get config from Argon
-        mConfig = Argon.getInstance().getConfig();
+        mConfig = Argon.getConfig();
         
         // Find views
         mHeadlineView = (TextView) findViewById(R.id.headline);
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         mConfig.showHeadline = TextUtils.isEmpty(mHeadlineView.getText());
         
-        Argon.getInstance().updateConfig(mConfig);
-        Argon.getInstance().restartProcess();
+        Argon.updateConfig(mConfig);
+        Argon.restartProcess();
     }
 }
