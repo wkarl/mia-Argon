@@ -32,7 +32,7 @@ import com.google.gson.JsonSyntaxException;
  */
 
 public class ConfigStore {
-    private static final String PREFERENCE_FILE = "de.prosiebensat1digital.argon.PREFERENCES";
+    private static final String PREFERENCE_FILE = "de.sevenfactory.argon.PREFERENCES";
     private static final String JSON_PREFERENCE = "JSON_CONFIG";
     
     private final SharedPreferences mPreferences;
