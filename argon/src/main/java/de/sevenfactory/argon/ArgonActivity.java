@@ -108,7 +108,7 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
             if (field.getType().equals(long.class)) {
                 EditTextPreference pref = new EditTextPreference(this);
                 pref.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
-                pref.setText(Float.toString(field.getLong(config)));
+                pref.setText(Long.toString(field.getLong(config)));
                 pref.setTitle(name);
                 pref.setOnPreferenceChangeListener(this);
                 screen.addPreference(pref);
