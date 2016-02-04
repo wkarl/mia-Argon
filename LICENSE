@@ -1,4 +1,3 @@
-
 The MIT License (MIT)
 
 Copyright (c) 2016 ProSiebenSat.1 Digital GmbH
@@ -20,3 +19,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+This product bundles Process Phoenix 1.0.2, which is available under a
+"Apache License, Version 2.0" license. For details, see https://github.com/JakeWharton/ProcessPhoenix.
+
+This product bundles google-gson 2.5, which is available under a
+"Apache License, Version 2.0" license. For details, see https://github.com/google/gson.
