@@ -1,10 +1,10 @@
-package de.prosiebensat1digital.argondemo;
+package de.sevenfactory.argondemo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import de.prosiebensat1digital.argon.Argon;
+import de.sevenfactory.argon.Argon;
 
 public class DetailsActivity extends AppCompatActivity {
     private ConfigModel mConfig;
