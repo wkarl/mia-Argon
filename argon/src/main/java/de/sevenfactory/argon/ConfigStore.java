@@ -31,7 +31,7 @@ import com.google.gson.JsonSyntaxException;
  * SOFTWARE.
  */
 
-public class ConfigStore {
+class ConfigStore {
     private static final String PREFERENCE_FILE = "de.sevenfactory.argon.PREFERENCES";
     private static final String JSON_PREFERENCE = "JSON_CONFIG";
     
