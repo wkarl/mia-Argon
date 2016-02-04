@@ -1,14 +1,3 @@
-package de.sevenfactory.argondemo;
-
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.TextView;
-
-import de.sevenfactory.argon.Argon;
-
 /**
  *
  * The MIT License (MIT)
@@ -33,6 +22,17 @@ import de.sevenfactory.argon.Argon;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+package de.sevenfactory.argondemo;
+
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.TextView;
+
+import de.sevenfactory.argon.Argon;
 
 public class MainActivity extends AppCompatActivity {
     private ConfigModel mConfig;

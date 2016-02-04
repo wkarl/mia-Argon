@@ -1,11 +1,3 @@
-package de.sevenfactory.argondemo;
-
-import android.app.Application;
-
-import com.google.gson.Gson;
-
-import de.sevenfactory.argon.Argon;
-
 /**
  *
  * The MIT License (MIT)
@@ -30,6 +22,14 @@ import de.sevenfactory.argon.Argon;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+package de.sevenfactory.argondemo;
+
+import android.app.Application;
+
+import com.google.gson.Gson;
+
+import de.sevenfactory.argon.Argon;
 
 public class ArgonDemoApplication extends Application {
     @Override
