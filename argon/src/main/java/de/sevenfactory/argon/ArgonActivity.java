@@ -18,8 +18,6 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.sevenfactory.argon.annotation.ArgonName;
-
 public class ArgonActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
     private Object                 mConfig;
     private Map<Preference, Field> mFieldMap;
@@ -49,14 +47,11 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
         }
         setPreferenceScreen(screen);
     }
-    
+
     private void addPreferenceFor(Object config, Field field, PreferenceScreen screen) throws IllegalAccessException {
         if (Modifier.isPublic(field.getModifiers()) && !Modifier.isStatic(field.getModifiers())) {
-            String name = field.getName();
-            ArgonName annotation = field.getAnnotation(ArgonName.class);
-            if (annotation != null) {
-                name = annotation.name();
-            }
+            String name = getAnnotatedName(field);
+
             if (field.getType().equals(boolean.class)) {
                 CheckBoxPreference pref = new CheckBoxPreference(this);
                 pref.setChecked(field.getBoolean(config));
@@ -104,6 +99,16 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
                 screen.addPreference(pref);
                 mFieldMap.put(pref, field);
             }
+        }
+    }
+
+    private String getAnnotatedName(Field field) {
+        Name annotation = field.getAnnotation(Name.class);
+
+        if (annotation != null) {
+            return annotation.value();
+        } else {
+            return field.getName();
         }
     }
     
