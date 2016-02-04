@@ -22,14 +22,14 @@
         android:id="@+id/detailsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/show_details"
-        android:onClick="goToDetails"/>
+        android:onClick="goToDetails"
+        android:text="@string/show_details"/>
     
     <Button
         android:id="@+id/toggleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Toggle Headline"
-        android:onClick="toggleHeadline"/>
+        android:onClick="toggleHeadline"
+        android:text="Toggle Headline"/>
 
 </LinearLayout>

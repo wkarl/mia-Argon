@@ -1,19 +1,18 @@
-/**
- *
+/*
  * The MIT License (MIT)
- *
+ * <p/>
  * Copyright (c) 2016 ProSiebenSat.1 Digital GmbH
- *
+ * <p/>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p/>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p/>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -33,7 +32,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -58,21 +56,27 @@ import com.jakewharton.processphoenix.ProcessPhoenix;
  */
 public class Argon {
     private static final int NOTIFICATION_ID = 666;
-    private static final int REQUEST_CODE = 0;
+    private static final int REQUEST_CODE    = 0;
 
     private static Argon sInstance;
 
-    private final Context mContext;
+    private final Context     mContext;
     private final ConfigStore mConfigStore;
 
     @DrawableRes
-    private int mIconRes = R.drawable.ic_bug_report_white_24dp;
+    private int mIconRes  = R.drawable.ic_bug_report_white_24dp;
     @StringRes
     private int mTitleRes = R.string.app_name;
     @StringRes
-    private int mTextRes = R.string.text;
+    private int mTextRes  = R.string.text;
     @ColorRes
     private int mColorRes = R.color.colorPrimary;
+
+    private <T> Argon(@NonNull Application application, Class<T> tClass, T defaultConfig) {
+        mContext = application;
+        mConfigStore = new ConfigStore(application, tClass, defaultConfig);
+        application.registerActivityLifecycleCallbacks(new ArgonActivityLifecycleCallbacks());
+    }
 
     /* Singleton methods */
     private static Argon getInstance() {
@@ -86,10 +90,10 @@ public class Argon {
      * Init Argon with a fallback configuration. This has to be done in {@link Application#onCreate()} to
      * guarantee correct interpretation of lifecycle events.
      *
-     * @param application your application class
-     * @param tClass the class of your configuration model Object
+     * @param application   your application class
+     * @param tClass        the class of your configuration model Object
      * @param defaultConfig an instance of your configuration
-     * @param <T> the Type of your configuration Object
+     * @param <T>           the Type of your configuration Object
      * @return the newly created Argon instance that can be used to chain setters
      * @throws IllegalStateException if Argon has already been initialized
      */
@@ -102,16 +106,41 @@ public class Argon {
         return sInstance;
     }
 
-    private <T> Argon(@NonNull Application application, Class<T> tClass, T defaultConfig) {
-        mContext = application;
-        mConfigStore = new ConfigStore(application, tClass, defaultConfig);
-        application.registerActivityLifecycleCallbacks(new ArgonActivityLifecycleCallbacks());
-    }
-
     /* Builder-like pattern */
 
     /**
+     * Updates the singleton instance's configuration object. Changes will not be visible until
+     * the process is restarted to maintain consistency across your application.
+     *
+     * @param config the modified configuration object
+     * @param <T>    the type of the configuration object
+     */
+    public static <T> void updateConfig(T config) {
+        getInstance().mConfigStore.update(config);
+    }
+
+    /**
+     * Getter for the configuration object. Please not that this will not return an updated object
+     * when called after {@link #updateConfig(Object)} until the process is restarted.
+     *
+     * @param <T> the type of the configuration object
+     * @return the current configuration object
+     */
+    public static <T> T getConfig() {
+        return getInstance().mConfigStore.getConfig();
+    }
+
+    /**
+     * Convenience method to restart the app process. This method is used to force a
+     * configuration update.
+     */
+    public static void restartProcess() {
+        ProcessPhoenix.triggerRebirth(getInstance().mContext);
+    }
+
+    /**
      * Sets the drawable used for the notification icon.
+     *
      * @param iconRes the icon's drawable resource
      * @return the singleton instance of Argon to be used for chaining
      */
@@ -122,6 +151,7 @@ public class Argon {
 
     /**
      * Sets the notification's title.
+     *
      * @param titleRes the title string resource
      * @return the singleton instance of Argon to be used for chaining
      */
@@ -132,6 +162,7 @@ public class Argon {
 
     /**
      * Sets the notification's text.
+     *
      * @param textRes the text string resource
      * @return the singleton instance of Argon to be used for chaining
      */
@@ -142,6 +173,7 @@ public class Argon {
 
     /**
      * Sets the notification's color.
+     *
      * @param colorRes the color resource
      * @return the singleton instance of Argon to be used for chaining
      */
@@ -168,7 +200,7 @@ public class Argon {
     @SuppressWarnings("deprecation")
     private Notification buildNotification() {
         String title = mContext.getString(mTitleRes);
-        String text = mContext.getString(mTextRes);
+        String text  = mContext.getString(mTextRes);
 
         int color;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -192,34 +224,6 @@ public class Argon {
         return PendingIntent.getActivity(mContext, REQUEST_CODE, intent, 0);
     }
 
-    /**
-     * Updates the singleton instance's configuration object. Changes will not be visible until
-     * the process is restarted to maintain consistency across your application.
-     * @param config the modified configuration object
-     * @param <T> the type of the configuration object
-     */
-    public static <T> void updateConfig(T config) {
-        getInstance().mConfigStore.update(config);
-    }
-
-    /**
-     * Getter for the configuration object. Please not that this will not return an updated object
-     * when called after {@link #updateConfig(Object)} until the process is restarted.
-     * @param <T> the type of the configuration object
-     * @return the current configuration object
-     */
-    public static <T> T getConfig() {
-        return getInstance().mConfigStore.getConfig();
-    }
-
-    /**
-     * Convenience method to restart the app process. This method is used to force a
-     * configuration update.
-     */
-    public static void restartProcess() {
-        ProcessPhoenix.triggerRebirth(getInstance().mContext);
-    }
-
     private class ArgonActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
         private int mStarted;
 
@@ -239,7 +243,7 @@ public class Argon {
         }
 
         @Override
-        public void onActivityStarted(Activity inActivity) {
+        public void onActivityStarted(Activity activity) {
             if (mStarted == 0) {
                 start();
             }
@@ -247,7 +251,7 @@ public class Argon {
         }
 
         @Override
-        public void onActivityStopped(Activity inActivity) {
+        public void onActivityStopped(Activity activity) {
             mStarted--;
             if (mStarted <= 0) {
                 stop();
