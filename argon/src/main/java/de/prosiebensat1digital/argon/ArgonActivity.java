@@ -11,12 +11,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.google.gson.annotations.SerializedName;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
+
+import de.prosiebensat1digital.argon.annotation.ArgonName;
 
 public class ArgonActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
     private Object                 mConfig;
@@ -50,10 +53,15 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
     
     private void addPreferenceFor(Object config, Field field, PreferenceScreen screen) throws IllegalAccessException {
         if (Modifier.isPublic(field.getModifiers()) && !Modifier.isStatic(field.getModifiers())) {
+            String name = field.getName();
+            ArgonName annotation = field.getAnnotation(ArgonName.class);
+            if (annotation != null) {
+                name = annotation.name();
+            }
             if (field.getType().equals(boolean.class)) {
                 CheckBoxPreference pref = new CheckBoxPreference(this);
                 pref.setChecked(field.getBoolean(config));
-                pref.setTitle(field.getName());
+                pref.setTitle(name);
                 pref.setOnPreferenceChangeListener(this);
                 screen.addPreference(pref);
                 mFieldMap.put(pref, field);
@@ -62,7 +70,7 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
             if (field.getType().equals(String.class)) {
                 EditTextPreference pref = new EditTextPreference(this);
                 pref.setText((String) field.get(config));
-                pref.setTitle(field.getName());
+                pref.setTitle(name);
                 pref.setOnPreferenceChangeListener(this);
                 screen.addPreference(pref);
                 mFieldMap.put(pref, field);
@@ -72,7 +80,7 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
                 EditTextPreference pref = new EditTextPreference(this);
                 pref.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
                 pref.setText(Integer.toString(field.getInt(config)));
-                pref.setTitle(field.getName());
+                pref.setTitle(name);
                 pref.setOnPreferenceChangeListener(this);
                 screen.addPreference(pref);
                 mFieldMap.put(pref, field);
@@ -82,7 +90,7 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
                 EditTextPreference pref = new EditTextPreference(this);
                 pref.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
                 pref.setText(Float.toString(field.getLong(config)));
-                pref.setTitle(field.getName());
+                pref.setTitle(name);
                 pref.setOnPreferenceChangeListener(this);
                 screen.addPreference(pref);
                 mFieldMap.put(pref, field);
@@ -92,7 +100,7 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
                 EditTextPreference pref = new EditTextPreference(this);
                 pref.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
                 pref.setText(Float.toString(field.getFloat(config)));
-                pref.setTitle(field.getName());
+                pref.setTitle(name);
                 pref.setOnPreferenceChangeListener(this);
                 screen.addPreference(pref);
                 mFieldMap.put(pref, field);
