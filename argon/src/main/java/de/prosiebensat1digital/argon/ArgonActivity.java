@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.google.gson.annotations.SerializedName;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
 import java.lang.reflect.Field;
