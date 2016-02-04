@@ -1,4 +1,4 @@
-package de.prosiebensat1digital.argon;
+package de.sevenfactory.argon;
 
 import android.content.Context;
 import android.content.SharedPreferences;

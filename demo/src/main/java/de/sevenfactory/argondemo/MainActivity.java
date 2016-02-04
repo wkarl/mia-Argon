@@ -1,4 +1,4 @@
-package de.prosiebensat1digital.argondemo;
+package de.sevenfactory.argondemo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import de.prosiebensat1digital.argon.Argon;
+import de.sevenfactory.argon.Argon;
 
 /**
  *

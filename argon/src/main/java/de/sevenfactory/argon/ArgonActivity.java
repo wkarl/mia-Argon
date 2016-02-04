@@ -1,4 +1,4 @@
-package de.prosiebensat1digital.argon;
+package de.sevenfactory.argon;
 
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -18,7 +18,7 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.prosiebensat1digital.argon.annotation.ArgonName;
+import de.sevenfactory.argon.annotation.ArgonName;
 
 public class ArgonActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
     private Object                 mConfig;

@@ -1,9 +1,6 @@
-package de.prosiebensat1digital.argon.annotation;
+package de.sevenfactory.argondemo;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import de.sevenfactory.argon.annotation.ArgonName;
 
 /**
  *
@@ -28,13 +25,13 @@ import java.lang.annotation.Target;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- * Created by bernd on 04.02.2016.
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.METHOD})
-public @interface ArgonName {
-    /**
-     * @return the desired name of the field in the config activity
-     */
-    String name();
+
+public class ConfigModel {
+    public boolean showHeadline = true;
+    public String text = "test";
+    public int intValue = 0;
+    public float floatValue = 0;
+    @ArgonName(name="Long Value")
+    public long longValue = 0;
 }

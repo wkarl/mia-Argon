@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 8
-        versionName "0.9.8"
+        versionCode 9
+        versionName "0.9.9"
     }
     
     buildTypes {
@@ -30,7 +30,7 @@ dependencies {
 
 uploadArchives {
     repositories.mavenDeployer {
-        pom.groupId = 'de.prosiebensat1digital'
+        pom.groupId = 'de.sevenfactory'
         pom.artifactId = project.name
         pom.version = android.defaultConfig.versionName
 

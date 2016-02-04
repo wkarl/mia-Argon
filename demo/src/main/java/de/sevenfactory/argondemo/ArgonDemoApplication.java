@@ -1,6 +1,10 @@
-package de.prosiebensat1digital.argondemo;
+package de.sevenfactory.argondemo;
 
-import de.prosiebensat1digital.argon.annotation.ArgonName;
+import android.app.Application;
+
+import com.google.gson.Gson;
+
+import de.sevenfactory.argon.Argon;
 
 /**
  *
@@ -27,11 +31,24 @@ import de.prosiebensat1digital.argon.annotation.ArgonName;
  * SOFTWARE.
  */
 
-public class ConfigModel {
-    public boolean showHeadline = true;
-    public String text = "test";
-    public int intValue = 0;
-    public float floatValue = 0;
-    @ArgonName(name="Long Value")
-    public long longValue = 0;
+public class ArgonDemoApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        String json = "{\n" +
+                "\"showHeadline\": true,\n" +
+                "\"text\": test,\n" +
+                "\"intValue\": 20,\n" +
+                "\"longValue\": 200000000000000000,\n" +
+                "\"floatValue\": 0.5823\n" +
+                "}";
+        Gson gson = new Gson();
+        ConfigModel defaultConfig = gson.fromJson(json, ConfigModel.class);
+        Argon.init(this, ConfigModel.class, defaultConfig)
+                .setIcon(R.drawable.ic_debug)
+                .setTitle(R.string.notification_title)
+                .setText(R.string.notification_text)
+                .setColor(R.color.colorAccent);
+    }
 }

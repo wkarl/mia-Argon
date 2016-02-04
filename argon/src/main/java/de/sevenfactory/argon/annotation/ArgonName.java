@@ -1,10 +1,9 @@
-package de.prosiebensat1digital.argondemo;
+package de.sevenfactory.argon.annotation;
 
-import android.app.Application;
-
-import com.google.gson.Gson;
-
-import de.prosiebensat1digital.argon.Argon;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  *
@@ -29,26 +28,13 @@ import de.prosiebensat1digital.argon.Argon;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ * Created by bernd on 04.02.2016.
  */
-
-public class ArgonDemoApplication extends Application {
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        String json = "{\n" +
-                "\"showHeadline\": true,\n" +
-                "\"text\": test,\n" +
-                "\"intValue\": 20,\n" +
-                "\"longValue\": 200000000000000000,\n" +
-                "\"floatValue\": 0.5823\n" +
-                "}";
-        Gson gson = new Gson();
-        ConfigModel defaultConfig = gson.fromJson(json, ConfigModel.class);
-        Argon.init(this, ConfigModel.class, defaultConfig)
-                .setIcon(R.drawable.ic_debug)
-                .setTitle(R.string.notification_title)
-                .setText(R.string.notification_text)
-                .setColor(R.color.colorAccent);
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD})
+public @interface ArgonName {
+    /**
+     * @return the desired name of the field in the config activity
+     */
+    String name();
 }
