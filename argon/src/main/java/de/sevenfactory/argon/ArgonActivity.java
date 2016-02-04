@@ -41,7 +41,7 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
     private void addPreferencesFromArgon() throws IllegalAccessException {
         PreferenceScreen screen = getPreferenceManager().createPreferenceScreen(this);
         
-        mConfig = Argon.getInstance().getConfig();
+        mConfig = Argon.getConfig();
         
         Field[] fields = mConfig.getClass().getDeclaredFields();
         for (Field field : fields) {
@@ -143,7 +143,7 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
             } else {
                 field.set(mConfig, newValue);
             }
-            Argon.getInstance().updateConfig(mConfig);
+            Argon.updateConfig(mConfig);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
