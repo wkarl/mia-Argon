@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="de.prosiebensat1digital.argondemo"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="de.prosiebensat1digital.argondemo"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:name=".ArgonDemoApplication"
@@ -19,5 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".DetailsActivity"
+            android:label="@string/details"/>
     </application>
 </manifest>

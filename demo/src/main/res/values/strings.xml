@@ -3,4 +3,6 @@
     
     <string name="notification_title">Argon custom title</string>
     <string name="notification_text">Argon custom description</string>
+    <string name="details">Details</string>
+    <string name="show_details">Show details</string>
 </resources>
