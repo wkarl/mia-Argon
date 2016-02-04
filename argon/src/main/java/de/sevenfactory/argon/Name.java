@@ -1,4 +1,4 @@
-package de.sevenfactory.argon.annotation;
+package de.sevenfactory.argon;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -28,13 +28,12 @@ import java.lang.annotation.Target;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- * Created by bernd on 04.02.2016.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.METHOD})
-public @interface ArgonName {
+@Target({ElementType.FIELD})
+public @interface Name {
     /**
      * @return the desired name of the field in the config activity
      */
-    String name();
+    String value();
 }
