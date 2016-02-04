@@ -1,27 +1,8 @@
-package de.sevenfactory.argon;
-
-import android.app.Activity;
-import android.app.Application;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.v4.app.NotificationCompat;
-
-import com.jakewharton.processphoenix.ProcessPhoenix;
-
 /**
  *
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 ProSiebenSat.1 Digital GmbH
+ * Copyright (c) 2016 ProSiebenSat.1 Digital GmbH
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +23,39 @@ import com.jakewharton.processphoenix.ProcessPhoenix;
  * SOFTWARE.
  */
 
+package de.sevenfactory.argon;
+
+import android.app.Activity;
+import android.app.Application;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
+import android.support.v4.app.NotificationCompat;
+
+import com.jakewharton.processphoenix.ProcessPhoenix;
+
+/**
+ * Argon maintains a singleton instance that holds, persists and updates a user defined
+ * configuration object of any type.
+ * <p/>
+ * A notification is shown while the app is running in the foreground. This notification opens a
+ * configuration activity containing all valid fields of your configuration object. Valid fields are
+ * Strings and the primitive types int, float and long. Field names displayed in the configuration
+ * activity can be changed using the annotation {@link de.sevenfactory.argon.annotation.ArgonName}.
+ * <p/>
+ * Leaving the configuration activity always triggers a process restart after which the updated
+ * configuration object is available.
+ * For consistency reasons, configuration updates during runtime using {@link #updateConfig(Object)}
+ * will only be effective after a process restart.
+ */
 public class Argon {
     private static final int NOTIFICATION_ID = 666;
     private static final int REQUEST_CODE = 0;
@@ -69,7 +83,15 @@ public class Argon {
     }
 
     /**
-     * Init Argon with a fallback configuration.
+     * Init Argon with a fallback configuration. This has to be done in {@link Application#onCreate()} to
+     * guarantee correct interpretation of lifecycle events.
+     *
+     * @param application your application class
+     * @param tClass the class of your configuration model Object
+     * @param defaultConfig an instance of your configuration
+     * @param <T> the Type of your configuration Object
+     * @return the newly created Argon instance that can be used to chain setters
+     * @throws IllegalStateException if Argon has already been initialized
      */
     public static <T> Argon init(@NonNull Application application, Class<T> tClass, T defaultConfig) {
         if (sInstance != null) {
@@ -87,21 +109,42 @@ public class Argon {
     }
 
     /* Builder-like pattern */
+
+    /**
+     * Sets the drawable used for the notification icon.
+     * @param iconRes the icon's drawable resource
+     * @return the singleton instance of Argon to be used for chaining
+     */
     public Argon setIcon(@DrawableRes int iconRes) {
         mIconRes = iconRes;
         return this;
     }
 
+    /**
+     * Sets the notification's title.
+     * @param titleRes the title string resource
+     * @return the singleton instance of Argon to be used for chaining
+     */
     public Argon setTitle(@StringRes int titleRes) {
         mTitleRes = titleRes;
         return this;
     }
 
+    /**
+     * Sets the notification's text.
+     * @param textRes the text string resource
+     * @return the singleton instance of Argon to be used for chaining
+     */
     public Argon setText(@StringRes int textRes) {
         mTextRes = textRes;
         return this;
     }
 
+    /**
+     * Sets the notification's color.
+     * @param colorRes the color resource
+     * @return the singleton instance of Argon to be used for chaining
+     */
     public Argon setColor(@ColorRes int colorRes) {
         mColorRes = colorRes;
         return this;
@@ -149,14 +192,30 @@ public class Argon {
         return PendingIntent.getActivity(mContext, REQUEST_CODE, intent, 0);
     }
 
+    /**
+     * Updates the singleton instance's configuration object. Changes will not be visible until
+     * the process is restarted to maintain consistency across your application.
+     * @param config the modified configuration object
+     * @param <T> the type of the configuration object
+     */
     public static <T> void updateConfig(T config) {
         getInstance().mConfigStore.update(config);
     }
 
+    /**
+     * Getter for the configuration object. Please not that this will not return an updated object
+     * when called after {@link #updateConfig(Object)} until the process is restarted.
+     * @param <T> the type of the configuration object
+     * @return the current configuration object
+     */
     public static <T> T getConfig() {
         return getInstance().mConfigStore.getConfig();
     }
 
+    /**
+     * Convenience method to restart the app process. This method is used to force a
+     * configuration update.
+     */
     public static void restartProcess() {
         ProcessPhoenix.triggerRebirth(getInstance().mContext);
     }

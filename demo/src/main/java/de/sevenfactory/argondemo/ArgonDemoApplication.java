@@ -1,16 +1,8 @@
-package de.sevenfactory.argondemo;
-
-import android.app.Application;
-
-import com.google.gson.Gson;
-
-import de.sevenfactory.argon.Argon;
-
 /**
  *
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 ProSiebenSat.1 Digital GmbH
+ * Copyright (c) 2016 ProSiebenSat.1 Digital GmbH
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +22,14 @@ import de.sevenfactory.argon.Argon;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+package de.sevenfactory.argondemo;
+
+import android.app.Application;
+
+import com.google.gson.Gson;
+
+import de.sevenfactory.argon.Argon;
 
 public class ArgonDemoApplication extends Application {
     @Override

@@ -1,16 +1,8 @@
-package de.sevenfactory.argon;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-
 /**
  *
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 ProSiebenSat.1 Digital GmbH
+ * Copyright (c) 2016 ProSiebenSat.1 Digital GmbH
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +23,15 @@ import com.google.gson.JsonSyntaxException;
  * SOFTWARE.
  */
 
-public class ConfigStore {
+package de.sevenfactory.argon;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
+class ConfigStore {
     private static final String PREFERENCE_FILE = "de.sevenfactory.argon.PREFERENCES";
     private static final String JSON_PREFERENCE = "JSON_CONFIG";
     
