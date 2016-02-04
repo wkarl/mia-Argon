@@ -49,7 +49,7 @@ import com.jakewharton.processphoenix.ProcessPhoenix;
  * A notification is shown while the app is running in the foreground. This notification opens a
  * configuration activity containing all valid fields of your configuration object. Valid fields are
  * Strings and the primitive types int, float and long. Field names displayed in the configuration
- * activity can be changed using the annotation {@link de.sevenfactory.argon.annotation.ArgonName}.
+ * activity can be changed using the annotation {@link de.sevenfactory.argon.Name}.
  * <p/>
  * Leaving the configuration activity always triggers a process restart after which the updated
  * configuration object is available.
