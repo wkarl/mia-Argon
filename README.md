@@ -74,3 +74,6 @@ Argon.init(this, ConfigModel.class, defaultConfig)
 3. Retrieve your configuration from your components with `Argon.getConfig();`.
 
 4. If you would like to update your configuration, use `Argon.updateConfig(configurationObject);`. Please not that due to consistency considerations these changes will only be available after your app process has been restarted. You can use `Argon.restartProcess();` to respawn your process and apply the changes.
+
+
+[![Build Status](https://travis-ci.org/7factory/mia-Argon.svg?branch=master)](https://travis-ci.org/7factory/mia-Argon)
