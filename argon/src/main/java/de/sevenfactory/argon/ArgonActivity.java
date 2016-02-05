@@ -44,7 +44,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.sevenfactory.argon.annotation.AnnotationUtils;
-import de.sevenfactory.argon.annotation.Name;
 
 public class ArgonActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
     private Object                 mConfig;
@@ -69,13 +68,15 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
         mConfig = Argon.getConfig();
         
         Field[] fields = mConfig.getClass().getDeclaredFields();
+
         for (Field field : fields) {
-            addPreferenceFor(mConfig, field, screen);
+            addPreference(mConfig, field, screen);
         }
+
         setPreferenceScreen(screen);
     }
 
-    private void addPreferenceFor(Object config, Field field, PreferenceScreen screen) throws IllegalAccessException {
+    private void addPreference(Object config, Field field, PreferenceScreen screen) throws IllegalAccessException {
         if (Modifier.isPublic(field.getModifiers()) && !Modifier.isStatic(field.getModifiers())) {
             String   name        = AnnotationUtils.getAnnotatedName(field);
             String[] options     = AnnotationUtils.getAnnotatedOptions(field);
@@ -142,20 +143,11 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
         }
     }
 
-    private String getAnnotatedName(Field field) {
-        Name annotation = field.getAnnotation(Name.class);
-
-        if (annotation != null) {
-            return annotation.value();
-        } else {
-            return field.getName();
-        }
-    }
-    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+
         return true;
     }
     
@@ -163,6 +155,7 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
     public boolean onOptionsItemSelected(MenuItem item) {
         // There is only one menu item, no need to distinguish
         ProcessPhoenix.triggerRebirth(this);
+
         return true;
     }
     
@@ -192,6 +185,7 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+
         return true;
     }
 }
