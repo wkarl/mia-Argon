@@ -28,7 +28,7 @@ import de.sevenfactory.argon.annotation.Name;
 import de.sevenfactory.argon.annotation.OptionNames;
 import de.sevenfactory.argon.annotation.Options;
 
-public class ConfigModel {
+public class Config {
     public boolean showHeadline = true;
     public String  text         = "test";
     public int     intValue     = 0;

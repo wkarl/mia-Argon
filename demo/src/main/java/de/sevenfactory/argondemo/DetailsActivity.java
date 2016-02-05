@@ -31,7 +31,7 @@ import android.widget.TextView;
 import de.sevenfactory.argon.Argon;
 
 public class DetailsActivity extends AppCompatActivity {
-    private ConfigModel mConfig;
+    private Config mConfig;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {

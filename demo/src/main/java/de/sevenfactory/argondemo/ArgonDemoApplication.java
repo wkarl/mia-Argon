@@ -44,9 +44,9 @@ public class ArgonDemoApplication extends Application {
                 "\"listValue\": \"Option 1\"\n" +
                 "}";
 
-        ConfigModel defaultConfig = new Gson().fromJson(json, ConfigModel.class);
+        Config defaultConfig = new Gson().fromJson(json, Config.class);
 
-        Argon.init(this, ConfigModel.class, defaultConfig)
+        Argon.init(this, Config.class, defaultConfig)
                 .setIcon(R.drawable.ic_debug)
                 .setTitle(R.string.notification_title)
                 .setText(R.string.notification_text)
