@@ -1,5 +1,5 @@
 # Argon-Android
-![logo](https://github.com/7factory/mia-Argon/raw/master/images/argon_150.png?raw=true "Argon")
+![logo](https://github.com/7factory/mia-Argon/raw/gh-pages/images/argon_400px.png?raw=true "Argon")
 
 Fast integration of debug options in your app. 
 
