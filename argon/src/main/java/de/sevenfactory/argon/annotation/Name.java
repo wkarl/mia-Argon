@@ -22,15 +22,18 @@
  * SOFTWARE.
  */
 
-package de.sevenfactory.argondemo;
+package de.sevenfactory.argon.annotation;
 
-import de.sevenfactory.argon.annotation.Name;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public class ConfigModel {
-    public boolean showHeadline = true;
-    public String  text         = "test";
-    public int     intValue     = 0;
-    public float   floatValue   = 0;
-    @Name("Long Value")
-    public long    longValue    = 0;
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD})
+public @interface Name {
+    /**
+     * @return the desired name of the field in the config activity
+     */
+    String value();
 }

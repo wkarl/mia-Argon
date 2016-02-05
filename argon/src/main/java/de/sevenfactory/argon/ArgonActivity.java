@@ -42,6 +42,8 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.sevenfactory.argon.annotation.Name;
+
 public class ArgonActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
     private Object                 mConfig;
     private Map<Preference, Field> mFieldMap;
