@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>mia-Argon by 7factory</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">mia-Argon</h1>
+      <h2 class="project-tagline">Fast integration of debug options in your Android app</h2>
+      <a href="https://github.com/7factory/mia-Argon" class="btn">View on GitHub</a>
+      <a href="https://github.com/7factory/mia-Argon/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/7factory/mia-Argon/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="argon-android" class="anchor" href="#argon-android" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Argon-Android</h1>
+
+<p><img src="https://github.com/7factory/mia-Argon/raw/master/images/argon_150.png?raw=true" alt="logo" title="Argon"></p>
+
+<p>Fast integration of debug options in your app. </p>
+
+<p>Whenever your application is running, a configurable notification icon is displayed. This notification links to a configuration activity where you can modify the fields defined in your custom configuration object. This object is consistently stored and updated by <code>Argon</code>. Changes to the configuration are applied by restarting the app's process to maintain consistency. You can also adjust the configuration during runtime using the <code>Argon</code> API but changes will only be visible after a restart.</p>
+
+<h2>
+<a id="using-gradle" class="anchor" href="#using-gradle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using Gradle</h2>
+
+<p>Add the following lines to your root build.gradle:</p>
+
+<div class="highlight highlight-source-groovy-gradle"><pre><span class="pl-en">allprojects</span> {
+    repositories {
+        [<span class="pl-k">..</span><span class="pl-k">.</span>]
+        maven { url <span class="pl-s"><span class="pl-pds">"</span>https://jitpack.io<span class="pl-pds">"</span></span> }
+    }
+}</pre></div>
+
+<p>Then reference the library from your module's build.gradle:</p>
+
+<div class="highlight highlight-source-groovy-gradle"><pre><span class="pl-en">dependencies</span> {
+    [<span class="pl-k">..</span><span class="pl-k">.</span>]
+    compile <span class="pl-s"><span class="pl-pds">'</span>com.github.7factory:mia-Argon:0.9.9<span class="pl-pds">'</span></span>
+}</pre></div>
+
+<h2>
+<a id="integration" class="anchor" href="#integration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Integration</h2>
+
+<p>Argon is designed to be easily integrated and configured from your <code>Application</code> class. </p>
+
+<ol>
+<li>
+<p>Create a POJO with your configuration. In the demo example the configuration is deserialized from JSON which might be stored as an asset to provide a default configuration but this is not a necessity.</p>
+
+<pre><code>String json = "{\n" +
+            "\"showHeadline\": true,\n" +
+            "\"text\": test,\n" +
+            "\"intValue\": 20,\n" +
+            "\"longValue\": 200000000000000000,\n" +
+            "\"floatValue\": 0.5823\n" +
+            "}";
+    Gson gson = new Gson();
+    ConfigModel defaultConfig = gson.fromJson(json, ConfigModel.class);
+</code></pre>
+
+<p>Optionally, you can use annotations to name your POJO's fields:</p>
+
+<pre><code>public class ConfigModel {
+  @Name("Headline Flag")
+  public boolean showHeadline;
+  @Name("Text")
+  public String text;
+  @Name("Int Value")
+  public int intValue;
+  @Name("Float Value")
+  public float floatValue;
+  @Name("Long Value")
+  public long longValue;
+}
+</code></pre>
+
+<p>The raw field names will be used as labels in the configuration <code>Activity</code> if no annotations were specified.</p>
+</li>
+<li>
+<p>Init <code>Argon</code> from your <code>Application</code> class's <code>onCreate</code> Method and configure its appearance. Please note that you should not initialize <code>Argon</code> from an <code>Activity</code> to ensure correct lifecycle handling.</p>
+
+<pre><code>Argon.init(this, ConfigModel.class, defaultConfig)
+            .setIcon(R.drawable.ic_debug)
+            .setTitle(R.string.notification_title)
+            .setText(R.string.notification_text)
+            .setColor(R.color.colorAccent);
+</code></pre>
+</li>
+<li><p>Retrieve your configuration from your components with <code>Argon.getConfig();</code>.</p></li>
+<li><p>If you would like to update your configuration, use <code>Argon.updateConfig(configurationObject);</code>. Please not that due to consistency considerations these changes will only be available after your app process has been restarted. You can use <code>Argon.restartProcess();</code> to respawn your process and apply the changes.</p></li>
+</ol>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/7factory/mia-Argon">mia-Argon</a> is maintained by <a href="https://github.com/7factory">7factory</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
