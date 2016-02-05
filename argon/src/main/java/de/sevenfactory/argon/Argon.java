@@ -46,7 +46,7 @@ import android.support.v4.app.NotificationCompat;
  * This notification opens a configuration activity containing all valid fields of your
  * configuration object. Valid fields are Strings and the primitive types int, float and long.
  * Field names displayed in the configuration activity can be changed using the annotation
- * {@link de.sevenfactory.argon.Name}.
+ * {@link de.sevenfactory.argon.annotation.Name}.
  * <p/>
  * Leaving the configuration activity always triggers a process restart after which the updated
  * configuration object is available.

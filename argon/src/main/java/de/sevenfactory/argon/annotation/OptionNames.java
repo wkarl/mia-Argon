@@ -22,18 +22,20 @@
  * SOFTWARE.
  */
 
-package de.sevenfactory.argon;
+package de.sevenfactory.argon.annotation;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
-public @interface Name {
+public @interface OptionNames {
     /**
-     * @return the desired name of the field in the config activity
+     * @return the desired names of the options for a field in the config activity
      */
-    String value();
+    String[] value() default "";
 }

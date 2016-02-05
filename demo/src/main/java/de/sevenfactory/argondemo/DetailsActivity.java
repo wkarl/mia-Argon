@@ -31,7 +31,7 @@ import android.widget.TextView;
 import de.sevenfactory.argon.Argon;
 
 public class DetailsActivity extends AppCompatActivity {
-    private ConfigModel mConfig;
+    private Config mConfig;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +47,12 @@ public class DetailsActivity extends AppCompatActivity {
         TextView intView    = ((TextView) findViewById(R.id.integerText));
         TextView floatView  = ((TextView) findViewById(R.id.floatText));
         TextView longView   = ((TextView) findViewById(R.id.longText));
+        TextView listView   = ((TextView) findViewById(R.id.listText));
 
         stringView.setText(mConfig.text);
         intView.setText(String.valueOf(mConfig.intValue));
         floatView.setText(String.valueOf(mConfig.floatValue));
         longView.setText(String.valueOf(mConfig.longValue));
+        listView.setText(String.valueOf(mConfig.listValue));
     }
 }

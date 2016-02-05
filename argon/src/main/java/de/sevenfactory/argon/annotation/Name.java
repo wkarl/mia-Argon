@@ -22,37 +22,18 @@
  * SOFTWARE.
  */
 
-package de.sevenfactory.argondemo;
+package de.sevenfactory.argon.annotation;
 
-import android.app.Application;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import com.google.gson.Gson;
-
-import de.sevenfactory.argon.Argon;
-
-public class ArgonDemoApplication extends Application {
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        String json = "{\n" +
-                "\"showHeadline\": true,\n" +
-                "\"text\": \"test\",\n" +
-                "\"intValue\": 20,\n" +
-                "\"longValue\": 200000000000000000,\n" +
-                "\"floatValue\": 0.5823,\n" +
-                "\"listValue\": \"Option 1\"\n" +
-                "}";
-
-        Config defaultConfig = new Gson().fromJson(json, Config.class);
-
-        Argon.init(this, Config.class, defaultConfig)
-                .setIcon(R.drawable.ic_debug)
-                .setTitle(R.string.notification_title)
-                .setText(R.string.notification_text)
-                .setColor(R.color.colorAccent);
-
-        // Explicitly enable debug mode (disabled by default)
-        Argon.setDebugModeEnabled(true);
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD})
+public @interface Name {
+    /**
+     * @return the desired name of the field in the config activity
+     */
+    String value();
 }

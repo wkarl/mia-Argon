@@ -27,7 +27,6 @@ package de.sevenfactory.argondemo;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,7 +34,7 @@ import android.widget.TextView;
 import de.sevenfactory.argon.Argon;
 
 public class MainActivity extends AppCompatActivity {
-    private ConfigModel mConfig;
+    private Config mConfig;
     
     private TextView mHeadlineView;
     private Button mDebugToggleButton;
