@@ -24,6 +24,7 @@
 
 package de.sevenfactory.argondemo;
 
+import de.sevenfactory.argon.annotation.Ignore;
 import de.sevenfactory.argon.annotation.Name;
 import de.sevenfactory.argon.annotation.OptionNames;
 import de.sevenfactory.argon.annotation.Options;
@@ -41,4 +42,7 @@ public class Config {
     @Options({"Option 1", "Option 2", "Option 3"})
     @OptionNames({"Option name 1", "Option name 2", "Option name 3"})
     public String listValue;
+
+    @Ignore
+    public String ignoredValue;
 }

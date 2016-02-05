@@ -41,7 +41,8 @@ public class ArgonDemoApplication extends Application {
                 "\"intValue\": 20,\n" +
                 "\"longValue\": 200000000000000000,\n" +
                 "\"floatValue\": 0.5823,\n" +
-                "\"listValue\": \"Option 1\"\n" +
+                "\"listValue\": \"Option 1\"\n," +
+                "\"ignoredValue\": \"This should be ignored.\"\n" +
                 "}";
 
         Config defaultConfig = new Gson().fromJson(json, Config.class);
