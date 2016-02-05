@@ -29,12 +29,13 @@ import de.sevenfactory.argon.annotation.OptionNames;
 import de.sevenfactory.argon.annotation.Options;
 
 public class Config {
-    public boolean showHeadline = true;
-    public String  text         = "test";
-    public int     intValue     = 0;
-    public float   floatValue   = 0;
+    public boolean showHeadline;
+    public String  text;
+    public int     intValue;
+    public float   floatValue;
+
     @Name("Long Value")
-    public long    longValue    = 0;
+    public long    longValue;
 
     @Name("List Values")
     @Options({"Option 1", "Option 2", "Option 3"})
