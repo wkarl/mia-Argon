@@ -3,4 +3,5 @@
     <string name="app_name">Argon</string>
     <string name="text">Touch to set debug options</string>
     <string name="apply">Apply</string>
+    <string name="title">Argon Debug Settings</string>
 </resources>

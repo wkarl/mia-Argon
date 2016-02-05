@@ -58,6 +58,7 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
     @SuppressWarnings("deprecation")
     private void addPreferencesFromArgon() throws IllegalAccessException {
         PreferenceScreen screen = getPreferenceManager().createPreferenceScreen(this);
+        screen.setTitle(R.string.title);
 
         mConfig = Argon.getConfig();
 
