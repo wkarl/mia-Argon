@@ -1,4 +1,5 @@
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14) [![Build Status](https://travis-ci.org/7factory/mia-Argon.svg?branch=master)](https://travis-ci.org/7factory/mia-Argon) [![Release](https://jitpack.io/v/7factory/mia-Argon.svg)](https://jitpack.io/#7factory/mia-Argon)
+[![License](http://img.shields.io/:license-mit-brightgreen.svg?style=flat)](https://raw.githubusercontent.com/7factory/mia-Argon/master/LICENSE)
 
 ![logo](https://github.com/7factory/mia-Argon/raw/gh-pages/images/argon_400px.png?raw=true "Argon")
 
