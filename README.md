@@ -26,6 +26,9 @@ dependencies {
     compile 'com.github.7factory:mia-Argon:x.y.z'
 }
 ```
+
+[![Release](https://jitpack.io/v/7factory/mia-Argon.svg)](https://jitpack.io/#7factory/mia-Argon)
+
 ## Integration ##
 
 Argon is designed to be easily integrated and configured from your `Application` class. 
