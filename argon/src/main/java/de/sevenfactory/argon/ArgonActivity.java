@@ -49,9 +49,8 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        
         mFieldMap = new HashMap<>();
-        
+
         try {
             addPreferencesFromArgon();
         } catch (IllegalAccessException e) {

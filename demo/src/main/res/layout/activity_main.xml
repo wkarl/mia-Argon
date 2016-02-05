@@ -19,9 +19,15 @@
         android:textStyle="bold"/>
     
     <Button
-        android:id="@+id/detailsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="goToDetails"
         android:text="@string/show_details"/>
+
+    <Button
+        android:id="@+id/button_debug_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="toggleDebugMode"
+        android:text="@string/debug_disable"/>
 </LinearLayout>

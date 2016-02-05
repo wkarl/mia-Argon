@@ -29,6 +29,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import de.sevenfactory.argon.Argon;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private ConfigModel mConfig;
     
     private TextView mHeadlineView;
+    private Button mDebugToggleButton;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +50,18 @@ public class MainActivity extends AppCompatActivity {
         
         // Find views
         mHeadlineView = (TextView) findViewById(R.id.headline);
-        
+        mDebugToggleButton = (Button) findViewById(R.id.button_debug_toggle);
+
         mHeadlineView.setText(mConfig.showHeadline ? "Hello World!" : null);
     }
 
     public void goToDetails(View v) {
         Intent intent = new Intent(this, DetailsActivity.class);
         startActivity(intent);
+    }
+
+    public void toggleDebugMode(View v) {
+        Argon.setDebugModeEnabled(!Argon.isDebugModeEnabled());
+        mDebugToggleButton.setText(Argon.isDebugModeEnabled() ? R.string.debug_disable : R.string.debug_enable);
     }
 }

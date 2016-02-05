@@ -49,5 +49,8 @@ public class ArgonDemoApplication extends Application {
                 .setTitle(R.string.notification_title)
                 .setText(R.string.notification_text)
                 .setColor(R.color.colorAccent);
+
+        // Explicitly enable debug mode (disabled by default)
+        Argon.setDebugModeEnabled(true);
     }
 }
