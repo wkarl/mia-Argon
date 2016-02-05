@@ -5,6 +5,7 @@
     <application>
         <activity
             android:name="de.sevenfactory.argon.ArgonActivity"
+            android:exported="false"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.DeviceDefault"/>
     </application>

@@ -38,16 +38,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationCompat;
 
-import com.jakewharton.processphoenix.ProcessPhoenix;
-
 /**
  * Argon maintains a singleton instance that holds, persists and updates a user defined
  * configuration object of any type.
  * <p/>
- * A notification is shown while the app is running in the foreground. This notification opens a
- * configuration activity containing all valid fields of your configuration object. Valid fields are
- * Strings and the primitive types int, float and long. Field names displayed in the configuration
- * activity can be changed using the annotation {@link de.sevenfactory.argon.Name}.
+ * If debug mode is enabled, a notification is shown while the app is running in the foreground.
+ * This notification opens a configuration activity containing all valid fields of your
+ * configuration object. Valid fields are Strings and the primitive types int, float and long.
+ * Field names displayed in the configuration activity can be changed using the annotation
+ * {@link de.sevenfactory.argon.Name}.
  * <p/>
  * Leaving the configuration activity always triggers a process restart after which the updated
  * configuration object is available.
@@ -60,8 +59,9 @@ public class Argon {
 
     private static Argon sInstance;
 
-    private final Context     mContext;
-    private final ConfigStore mConfigStore;
+    private final Context                         mContext;
+    private final ConfigStore                     mConfigStore;
+    private final ArgonActivityLifecycleCallbacks mLifecycleCallbacks;
 
     @DrawableRes
     private int mIconRes  = R.drawable.ic_bug_report_white_24dp;
@@ -72,10 +72,16 @@ public class Argon {
     @ColorRes
     private int mColorRes = R.color.colorPrimary;
 
+    private boolean mDebugModeEnabled;
+
     private <T> Argon(@NonNull Application application, Class<T> tClass, T defaultConfig) {
         mContext = application;
         mConfigStore = new ConfigStore(application, tClass, defaultConfig);
-        application.registerActivityLifecycleCallbacks(new ArgonActivityLifecycleCallbacks());
+        mLifecycleCallbacks = new ArgonActivityLifecycleCallbacks();
+        application.registerActivityLifecycleCallbacks(mLifecycleCallbacks);
+
+        // Explicitly disable debug mode
+        mDebugModeEnabled = false;
     }
 
     /* Singleton methods */
@@ -131,11 +137,26 @@ public class Argon {
     }
 
     /**
-     * Convenience method to restart the app process. This method is used to force a
-     * configuration update.
+     * Enables or disables debug mode. Default is disabled.
+     * @param enabled shows debug notification and options activity if true
      */
-    public static void restartProcess() {
-        ProcessPhoenix.triggerRebirth(getInstance().mContext);
+    public static void setDebugModeEnabled(boolean enabled) {
+        getInstance().mDebugModeEnabled = enabled;
+
+        boolean inForeground = getInstance().mLifecycleCallbacks.mStarted > 0;
+        if (inForeground && enabled) {
+            getInstance().showNotification();
+        } else {
+            getInstance().hideNotification();
+        }
+    }
+
+    /**
+     * Getter for debug mode status.
+     * @return true if debug mode is enabled
+     */
+    public static boolean isDebugModeEnabled() {
+        return getInstance().mDebugModeEnabled;
     }
 
     /**
@@ -183,12 +204,14 @@ public class Argon {
     }
 
     /* Lifecycle */
-    private void start() {
-        Notification notification = buildNotification();
-        getNotificationManager().notify(NOTIFICATION_ID, notification);
+    private void showNotification() {
+        if (mDebugModeEnabled) {
+            Notification notification = buildNotification();
+            getNotificationManager().notify(NOTIFICATION_ID, notification);
+        }
     }
 
-    private void stop() {
+    private void hideNotification() {
         getNotificationManager().cancel(NOTIFICATION_ID);
     }
 
@@ -245,7 +268,7 @@ public class Argon {
         @Override
         public void onActivityStarted(Activity activity) {
             if (mStarted == 0) {
-                start();
+                showNotification();
             }
             mStarted++;
         }
@@ -254,7 +277,7 @@ public class Argon {
         public void onActivityStopped(Activity activity) {
             mStarted--;
             if (mStarted <= 0) {
-                stop();
+                hideNotification();
             }
         }
 

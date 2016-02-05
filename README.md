@@ -1,9 +1,14 @@
 # Argon-Android
 ![logo](https://github.com/7factory/mia-Argon/raw/gh-pages/images/argon_400px.png?raw=true "Argon")
 
-Fast integration of debug options in your app. 
+Fast integration of custom configuration and debug functionality in your app.
 
-Whenever your application is running, a configurable notification icon is displayed. This notification links to a configuration activity where you can modify the fields defined in your custom configuration object. This object is consistently stored and updated by `Argon`. Changes to the configuration are applied by restarting the app's process to maintain consistency. You can also adjust the configuration during runtime using the `Argon` API but changes will only be visible after a restart.
+Argon maintains a singleton instance that holds, persists and updates a user defined configuration object of any type.
+
+Debug mode can be enabled at any time to conveniently modify this configuration from.
+Whenever your application is running with `Argon` in debug mode, a configurable notification icon is displayed. This notification links to a configuration activity where you can modify the fields defined in your custom configuration object. This object is consistently stored and updated by `Argon`. Changes to the configuration are applied by restarting the app's process to maintain consistency.
+
+You can also adjust the configuration programmatically during runtime using the `Argon` API but changes will only be visible after a restart.
 
 ## Using Gradle ##
 
@@ -73,7 +78,6 @@ Argon.init(this, ConfigModel.class, defaultConfig)
 
 3. Retrieve your configuration from your components with `Argon.getConfig();`.
 
-4. If you would like to update your configuration, use `Argon.updateConfig(configurationObject);`. Please not that due to consistency considerations these changes will only be available after your app process has been restarted. You can use `Argon.restartProcess();` to respawn your process and apply the changes.
-
+4. If you would like to update your configuration, use `Argon.updateConfig(configurationObject);`. Please not that due to consistency considerations these changes will only be available after your app process has been restarted.
 
 [![Build Status](https://travis-ci.org/7factory/mia-Argon.svg?branch=master)](https://travis-ci.org/7factory/mia-Argon)
