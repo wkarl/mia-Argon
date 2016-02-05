@@ -53,7 +53,6 @@ class ConfigStore {
     <T> void update(T config) {
         Gson gson = new Gson();
         mPreferences.edit().putString(JSON_PREFERENCE, gson.toJson(config)).apply();
-        
     }
     
     private <T> T fromJson(String json, Class<T> clazz) {

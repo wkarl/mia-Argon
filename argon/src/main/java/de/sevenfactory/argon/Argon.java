@@ -112,8 +112,6 @@ public class Argon {
         return sInstance;
     }
 
-    /* Builder-like pattern */
-
     /**
      * Updates the singleton instance's configuration object. Changes will not be visible until
      * the process is restarted to maintain consistency across your application.
@@ -158,6 +156,8 @@ public class Argon {
     public static boolean isDebugModeEnabled() {
         return getInstance().mDebugModeEnabled;
     }
+
+    /* Builder-like pattern */
 
     /**
      * Sets the drawable used for the notification icon.
@@ -204,6 +204,7 @@ public class Argon {
     }
 
     /* Lifecycle */
+
     private void showNotification() {
         if (mDebugModeEnabled) {
             Notification notification = buildNotification();
@@ -216,6 +217,7 @@ public class Argon {
     }
 
     /* Notification helpers */
+
     private NotificationManager getNotificationManager() {
         return (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
     }
@@ -246,6 +248,8 @@ public class Argon {
         Intent intent = new Intent(mContext, ArgonActivity.class);
         return PendingIntent.getActivity(mContext, REQUEST_CODE, intent, 0);
     }
+
+    /* ArgonActivityLifecycleCallbacks */
 
     private class ArgonActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
         private int mStarted;
