@@ -65,7 +65,9 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
         Field[] fields = Argon.getConfig().getClass().getDeclaredFields();
 
         for (Field field : fields) {
-            addPreference(field, screen);
+            if (!AnnotationUtils.shouldIgnore(field)) {
+                addPreference(field, screen);
+            }
         }
 
         setPreferenceScreen(screen);

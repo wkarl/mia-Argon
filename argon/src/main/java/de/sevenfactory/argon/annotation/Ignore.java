@@ -22,27 +22,18 @@
  * SOFTWARE.
  */
 
-package de.sevenfactory.argondemo;
+package de.sevenfactory.argon.annotation;
 
-import de.sevenfactory.argon.annotation.Ignore;
-import de.sevenfactory.argon.annotation.Name;
-import de.sevenfactory.argon.annotation.OptionNames;
-import de.sevenfactory.argon.annotation.Options;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public class Config {
-    public boolean showHeadline;
-    public String  text;
-    public int     intValue;
-    public float   floatValue;
-
-    @Name("Long Value")
-    public long    longValue;
-
-    @Name("List Values")
-    @Options({"Option 1", "Option 2", "Option 3"})
-    @OptionNames({"Option name 1", "Option name 2", "Option name 3"})
-    public String listValue;
-
-    @Ignore
-    public String ignoredValue;
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD})
+public @interface Ignore {
+    /**
+     * @return true that config member is ignored by {@link de.sevenfactory.argon.Argon}
+     */
+    boolean value() default true;
 }
