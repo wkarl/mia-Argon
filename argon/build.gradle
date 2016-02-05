@@ -12,6 +12,27 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    libraryVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            def versionName = android.defaultConfig.versionName
+            def flavorName = ""
+            variant.productFlavors.each { flavor ->
+                if (flavor.name != "android")
+                    flavorName = "-${flavor.name}"
+            }
+            def relType = "";
+            if (variant.buildType.name == "debug") {
+                relType = '-debug';
+            }
+            if (outputFile != null && outputFile.name.endsWith('.aar')) {
+                def fileName = "${archivesBaseName}-${versionName}${flavorName}${relType}.aar"
+                output.outputFile = new File((String) outputFile.parent, fileName)
+                println(fileName)
+            }
+        }
+    }
     
     buildTypes {
         libraryVariants.all { variant ->
