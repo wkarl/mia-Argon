@@ -1,4 +1,5 @@
-# Argon-Android
+[![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14) [![Build Status](https://travis-ci.org/7factory/mia-Argon.svg?branch=master)](https://travis-ci.org/7factory/mia-Argon) [![Release](https://jitpack.io/v/7factory/mia-Argon.svg)](https://jitpack.io/#7factory/mia-Argon)
+
 ![logo](https://github.com/7factory/mia-Argon/raw/gh-pages/images/argon_400px.png?raw=true "Argon")
 
 Fast integration of custom configuration and debug functionality in your app.
@@ -31,8 +32,6 @@ dependencies {
     compile 'com.github.7factory:mia-Argon:x.y.z'
 }
 ```
-
-[![Release](https://jitpack.io/v/7factory/mia-Argon.svg)](https://jitpack.io/#7factory/mia-Argon)
 
 ## Integration ##
 
@@ -79,5 +78,3 @@ Argon.init(this, ConfigModel.class, defaultConfig)
 3. Retrieve your configuration from your components with `Argon.getConfig();`.
 
 4. If you would like to update your configuration, use `Argon.updateConfig(configurationObject);`. Please not that due to consistency considerations these changes will only be available after your app process has been restarted.
-
-[![Build Status](https://travis-ci.org/7factory/mia-Argon.svg?branch=master)](https://travis-ci.org/7factory/mia-Argon)
