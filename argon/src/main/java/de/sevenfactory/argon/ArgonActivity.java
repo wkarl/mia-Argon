@@ -25,13 +25,10 @@
 package de.sevenfactory.argon;
 
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
-import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,7 +36,6 @@ import android.view.MenuItem;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,83 +58,23 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
     @SuppressWarnings("deprecation")
     private void addPreferencesFromArgon() throws IllegalAccessException {
         PreferenceScreen screen = getPreferenceManager().createPreferenceScreen(this);
-        
+
         mConfig = Argon.getConfig();
-        
-        Field[] fields = mConfig.getClass().getDeclaredFields();
+
+        Field[] fields = Argon.getConfig().getClass().getDeclaredFields();
 
         for (Field field : fields) {
-            addPreference(mConfig, field, screen);
+            addPreference(field, screen);
         }
 
         setPreferenceScreen(screen);
     }
 
-    private void addPreference(Object config, Field field, PreferenceScreen screen) throws IllegalAccessException {
-        if (Modifier.isPublic(field.getModifiers()) && !Modifier.isStatic(field.getModifiers())) {
-            String   name        = AnnotationUtils.getAnnotatedName(field);
-            String[] options     = AnnotationUtils.getAnnotatedOptions(field);
-            String[] optionNames = AnnotationUtils.getAnnotatedOptionNames(field);
-
-            if (options != null) {
-                ListPreference pref = new ListPreference(this);
-                pref.setTitle(name);
-                pref.setEntries(optionNames != null ? optionNames : options);
-                pref.setEntryValues(options);
-                pref.setValue(String.valueOf(field.get(config)));
-                pref.setOnPreferenceChangeListener(this);
-                screen.addPreference(pref);
-                mFieldMap.put(pref, field);
-            } else {
-                if (field.getType().equals(boolean.class)) {
-                    CheckBoxPreference pref = new CheckBoxPreference(this);
-                    pref.setChecked(field.getBoolean(config));
-                    pref.setTitle(name);
-                    pref.setOnPreferenceChangeListener(this);
-                    screen.addPreference(pref);
-                    mFieldMap.put(pref, field);
-                }
-
-                if (field.getType().equals(String.class)) {
-                    EditTextPreference pref = new EditTextPreference(this);
-                    pref.setText((String) field.get(config));
-                    pref.setTitle(name);
-                    pref.setOnPreferenceChangeListener(this);
-                    screen.addPreference(pref);
-                    mFieldMap.put(pref, field);
-                }
-
-                if (field.getType().equals(int.class)) {
-                    EditTextPreference pref = new EditTextPreference(this);
-                    pref.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
-                    pref.setText(Integer.toString(field.getInt(config)));
-                    pref.setTitle(name);
-                    pref.setOnPreferenceChangeListener(this);
-                    screen.addPreference(pref);
-                    mFieldMap.put(pref, field);
-                }
-
-                if (field.getType().equals(long.class)) {
-                    EditTextPreference pref = new EditTextPreference(this);
-                    pref.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
-                    pref.setText(Long.toString(field.getLong(config)));
-                    pref.setTitle(name);
-                    pref.setOnPreferenceChangeListener(this);
-                    screen.addPreference(pref);
-                    mFieldMap.put(pref, field);
-                }
-
-                if (field.getType().equals(float.class)) {
-                    EditTextPreference pref = new EditTextPreference(this);
-                    pref.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
-                    pref.setText(Float.toString(field.getFloat(config)));
-                    pref.setTitle(name);
-                    pref.setOnPreferenceChangeListener(this);
-                    screen.addPreference(pref);
-                    mFieldMap.put(pref, field);
-                }
-            }
-        }
+    private void addPreference(Field field, PreferenceScreen screen) throws IllegalAccessException {
+        Preference preference = PreferenceFactory.createPreference(this, mConfig, field);
+        preference.setOnPreferenceChangeListener(this);
+        screen.addPreference(preference);
+        mFieldMap.put(preference, field);
     }
 
     @Override
