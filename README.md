@@ -23,7 +23,7 @@ Then reference the library from your module's build.gradle:
 ``` gradle
 dependencies {
     [...]
-    compile 'com.github.7factory:mia-Argon:0.9.9'
+    compile 'com.github.7factory:mia-Argon:x.y.z'
 }
 ```
 ## Integration ##
