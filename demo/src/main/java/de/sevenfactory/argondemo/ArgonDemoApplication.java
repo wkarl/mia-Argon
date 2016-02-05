@@ -37,13 +37,15 @@ public class ArgonDemoApplication extends Application {
 
         String json = "{\n" +
                 "\"showHeadline\": true,\n" +
-                "\"text\": test,\n" +
+                "\"text\": \"test\",\n" +
                 "\"intValue\": 20,\n" +
                 "\"longValue\": 200000000000000000,\n" +
-                "\"floatValue\": 0.5823\n" +
+                "\"floatValue\": 0.5823,\n" +
+                "\"listValue\": \"Option 1\"\n" +
                 "}";
-        Gson        gson          = new Gson();
-        ConfigModel defaultConfig = gson.fromJson(json, ConfigModel.class);
+
+        ConfigModel defaultConfig = new Gson().fromJson(json, ConfigModel.class);
+
         Argon.init(this, ConfigModel.class, defaultConfig)
                 .setIcon(R.drawable.ic_debug)
                 .setTitle(R.string.notification_title)
