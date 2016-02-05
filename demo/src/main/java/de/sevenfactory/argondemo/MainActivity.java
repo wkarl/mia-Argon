@@ -52,13 +52,6 @@ public class MainActivity extends AppCompatActivity {
         mHeadlineView.setText(mConfig.showHeadline ? "Hello World!" : null);
     }
 
-    public void toggleHeadline(View v) {
-        mConfig.showHeadline = TextUtils.isEmpty(mHeadlineView.getText());
-
-        Argon.updateConfig(mConfig);
-        Argon.restartProcess();
-    }
-
     public void goToDetails(View v) {
         Intent intent = new Intent(this, DetailsActivity.class);
         startActivity(intent);

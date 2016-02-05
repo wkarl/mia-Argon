@@ -131,14 +131,6 @@ public class Argon {
     }
 
     /**
-     * Convenience method to restart the app process. This method is used to force a
-     * configuration update.
-     */
-    public static void restartProcess() {
-        ProcessPhoenix.triggerRebirth(getInstance().mContext);
-    }
-
-    /**
      * Sets the drawable used for the notification icon.
      *
      * @param iconRes the icon's drawable resource
