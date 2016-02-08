@@ -44,10 +44,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Enable debug mode - this can be done in the application but was moved here to enable
-        // debug mode instrumentation testing.
-        Argon.setDebugModeEnabled(true);
-
         // Get config from Argon
         mConfig = Argon.getConfig();
         
