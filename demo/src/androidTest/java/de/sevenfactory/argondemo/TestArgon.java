@@ -36,7 +36,7 @@ public class TestArgon {
         } catch (IllegalStateException e) {
             return;
         }
-        Assert.fail("Argon initialized twice without an exception.");
+        Assert.fail("Argon initialized twice but no exception thrown.");
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -54,5 +54,15 @@ public class TestArgon {
         for (StatusBarNotification notification : notifications) {
             Assert.assertNotEquals(getClass().getPackage().getName(), notification.getPackageName());
         }
+    }
+
+    @Test
+    public void testUpdateConfigInvalid() {
+        try {
+            Argon.updateConfig("test");
+        } catch (IllegalArgumentException e) {
+            return;
+        }
+        Assert.fail("Config updated with wrong type but no exception thrown.");
     }
 }

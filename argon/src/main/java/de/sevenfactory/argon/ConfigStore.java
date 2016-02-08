@@ -51,8 +51,13 @@ class ConfigStore {
     }
     
     <T> void update(T config) {
-        Gson gson = new Gson();
-        mPreferences.edit().putString(JSON_PREFERENCE, gson.toJson(config)).apply();
+        if (mConfig == null || config.getClass().equals(mConfig.getClass())) {
+            Gson gson = new Gson();
+            mPreferences.edit().putString(JSON_PREFERENCE, gson.toJson(config)).apply();
+        } else {
+            throw new IllegalArgumentException("Expected: " + mConfig.getClass().getName()
+                    + ", actual: " + config.getClass().getName());
+        }
     }
     
     private <T> T fromJson(String json, Class<T> clazz) {
