@@ -110,6 +110,11 @@ public class TestArgon {
 
     @Test
     public void testUpdateNull() {
+        Config config = new Config();
+        config.text = "test";
+
+        Argon.updateConfig(config);
+
         try {
             Argon.updateConfig(null);
         } catch (IllegalArgumentException e) {
