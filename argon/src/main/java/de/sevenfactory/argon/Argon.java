@@ -97,7 +97,7 @@ public class Argon {
      * guarantee correct interpretation of lifecycle events.
      *
      * @param application   your application class
-     * @param tClass        the class of your configuration model Object
+     * @param tClass        the class of your configuration model Object (cannot be generic)
      * @param defaultConfig an instance of your configuration
      * @param <T>           the Type of your configuration Object
      * @return the newly created Argon instance that can be used to chain setters
