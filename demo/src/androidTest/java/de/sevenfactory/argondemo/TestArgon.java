@@ -98,4 +98,10 @@ public class TestArgon {
         }
         Assert.fail("Argon initialized with null value but no exception thrown.");
     }
+
+    @Test
+    public void testListType() {
+        Config config = Argon.getConfig();
+        Assert.assertEquals(3, config.list.size());
+    }
 }

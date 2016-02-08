@@ -24,6 +24,8 @@
 
 package de.sevenfactory.argondemo;
 
+import java.util.List;
+
 import de.sevenfactory.argon.annotation.Ignore;
 import de.sevenfactory.argon.annotation.Name;
 import de.sevenfactory.argon.annotation.OptionNames;
@@ -36,7 +38,7 @@ public class Config {
     public float   floatValue;
 
     @Name("Long Value")
-    public long    longValue;
+    public long longValue;
 
     @Name("List Values")
     @Options({"Option 1", "Option 2", "Option 3"})
@@ -45,4 +47,7 @@ public class Config {
 
     @Ignore
     public String ignoredValue;
+
+    // Any type can be used as a field but only primitives and Strings will be displayed as preferences
+    public List<String> list;
 }
