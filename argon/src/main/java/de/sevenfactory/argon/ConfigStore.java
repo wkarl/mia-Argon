@@ -26,6 +26,7 @@ package de.sevenfactory.argon;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -50,9 +51,18 @@ class ConfigStore {
         mConfig = savedConfig;
     }
     
-    <T> void update(T config) {
-        Gson gson = new Gson();
-        mPreferences.edit().putString(JSON_PREFERENCE, gson.toJson(config)).apply();
+    <T> void update(@NonNull T config) {
+        if (config == null) {
+            throw new IllegalArgumentException("config cannot be null");
+        }
+
+        if (mConfig == null || config.getClass().equals(mConfig.getClass())) {
+            Gson gson = new Gson();
+            mPreferences.edit().putString(JSON_PREFERENCE, gson.toJson(config)).apply();
+        } else {
+            throw new IllegalArgumentException("Expected: " + mConfig.getClass().getName()
+                    + ", actual: " + config.getClass().getName());
+        }
     }
     
     private <T> T fromJson(String json, Class<T> clazz) {
