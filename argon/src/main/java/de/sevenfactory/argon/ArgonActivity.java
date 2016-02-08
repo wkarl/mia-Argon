@@ -26,6 +26,7 @@ package de.sevenfactory.argon;
 
 import android.os.Bundle;
 import android.preference.EditTextPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
@@ -109,7 +110,8 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         try {
             Field field = mFieldMap.get(preference);
-            if (preference instanceof EditTextPreference && !field.getType().equals(String.class)) {
+            if ((preference instanceof EditTextPreference || preference instanceof ListPreference)
+                    && !field.getType().equals(String.class)) {
                 if (field.getType().equals(int.class)) {
                     field.setInt(mConfig, Integer.parseInt((String) newValue));
                 } else if (field.getType().equals(float.class)) {
