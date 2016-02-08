@@ -16,13 +16,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import de.sevenfactory.argon.Argon;
+import de.sevenfactory.argondemo.test.TestActivity;
 
 @RunWith(AndroidJUnit4.class)
 public class TestArgon {
     Application mApplication;
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<TestActivity> mActivityRule = new ActivityTestRule<>(TestActivity.class);
 
     @Before
     public void setUp() {
@@ -41,9 +42,7 @@ public class TestArgon {
 
     @TargetApi(Build.VERSION_CODES.M)
     @Test
-    public void testDisableDebugMode() {
-        Argon.setDebugModeEnabled(false);
-
+    public void testDebugModeDefaultDisabled() {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) {
             Assert.fail("Notification status can only be tested on devices with API level 23 and up.");
         }
