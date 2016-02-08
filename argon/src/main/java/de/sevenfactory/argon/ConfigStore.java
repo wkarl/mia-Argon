@@ -26,6 +26,7 @@ package de.sevenfactory.argon;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -50,7 +51,7 @@ class ConfigStore {
         mConfig = savedConfig;
     }
     
-    <T> void update(T config) {
+    <T> void update(@NonNull T config) {
         if (config == null) {
             throw new IllegalArgumentException("config cannot be null");
         }
