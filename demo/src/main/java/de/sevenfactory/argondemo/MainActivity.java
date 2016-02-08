@@ -24,11 +24,13 @@
 
 package de.sevenfactory.argondemo;
 
-import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import de.sevenfactory.argon.Argon;
@@ -37,26 +39,38 @@ public class MainActivity extends AppCompatActivity {
     private Config mConfig;
     
     private TextView mHeadlineView;
-    private Button mDebugToggleButton;
+    private Button   mDebugToggleButton;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Get config from Argon
-        mConfig = Argon.getConfig();
-        
         // Find views
         mHeadlineView = (TextView) findViewById(R.id.headline);
         mDebugToggleButton = (Button) findViewById(R.id.button_debug_toggle);
 
-        mHeadlineView.setText(mConfig.showHeadline ? "Hello World!" : null);
-    }
+        // Get config from Argon
+        mConfig = Argon.getConfig();
 
-    public void goToDetails(View v) {
-        Intent intent = new Intent(this, DetailsActivity.class);
-        startActivity(intent);
+        // Apply configuration
+        mHeadlineView.setText(mConfig.showHeadline ? mConfig.text : null);
+
+        if (mConfig.textColor != null) {
+            mHeadlineView.setTextColor(Color.parseColor(mConfig.textColor));
+        }
+
+        mHeadlineView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mConfig.textSize);
+
+        FrameLayout.LayoutParams params =
+                new FrameLayout.LayoutParams(mConfig.textLayoutWidth, mConfig.textLayoutHeight);
+        mHeadlineView.setLayoutParams(params);
+
+        mHeadlineView.setGravity(mConfig.textGravity);
+
+        if (mConfig.backgroundColor != null) {
+            findViewById(android.R.id.content).setBackgroundColor(Color.parseColor(mConfig.backgroundColor));
+        }
     }
 
     public void toggleDebugMode(View v) {

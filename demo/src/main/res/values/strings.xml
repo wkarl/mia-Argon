@@ -4,7 +4,6 @@
     <string name="notification_title">Argon custom title</string>
     <string name="notification_text">Argon custom description</string>
     <string name="details">Details</string>
-    <string name="show_details">Show details</string>
     <string name="debug_enable">Enable debug mode</string>
     <string name="debug_disable">Disable debug mode</string>
 </resources>

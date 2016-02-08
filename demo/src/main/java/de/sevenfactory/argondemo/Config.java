@@ -32,18 +32,41 @@ import de.sevenfactory.argon.annotation.OptionNames;
 import de.sevenfactory.argon.annotation.Options;
 
 public class Config {
+    @Name("Show text")
     public boolean showHeadline;
-    public String  text;
-    public int     intValue;
-    public float   floatValue;
 
-    @Name("Long Value")
-    public long longValue;
+    @Name("Text")
+    public String text;
 
-    @Name("List Values")
-    @Options({"Option 1", "Option 2", "Option 3"})
-    @OptionNames({"Option name 1", "Option name 2", "Option name 3"})
-    public String listValue;
+    @Name("Text color")
+    @Options({"#000000", "#00ff00", "#ff0000"})
+    @OptionNames({"black", "green", "red"})
+    public String textColor;
+
+    @Name("Text size")
+    @Options({"10", "18", "24", "36", "72"})
+    @OptionNames({"10sp", "18sp", "24sp", "36sp", "72sp"})
+    public float textSize;
+
+    @Name("Text gravity")
+    @OptionNames({"CENTER", "default"})
+    @Options({"17", "51"})
+    public int textGravity;
+
+    @Name("Text layout_height")
+    @Options({"-1", "-2"})
+    @OptionNames({"MATCH_PARENT", "WRAP_CONTENT"})
+    public int textLayoutHeight;
+
+    @Name("Text layout_width")
+    @Options({"-1", "-2"})
+    @OptionNames({"MATCH_PARENT", "WRAP_CONTENT"})
+    public int textLayoutWidth;
+
+    @Name("Background color")
+    @Options({"#ffffff", "#aaaaaa"})
+    @OptionNames({"white", "grey"})
+    public String backgroundColor;
 
     @Ignore
     public String ignoredValue;

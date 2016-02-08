@@ -37,11 +37,13 @@ public class ArgonDemoApplication extends Application {
 
         String json = "{\n" +
                 "\"showHeadline\": true,\n" +
-                "\"text\": \"test\",\n" +
-                "\"intValue\": 20,\n" +
-                "\"longValue\": 200000000000000000,\n" +
-                "\"floatValue\": 0.5823,\n" +
-                "\"listValue\": \"Option 1\"\n," +
+                "\"text\": \"Hello world!\",\n" +
+                "\"textColor\": \"#000000\"\n," +
+                "\"backgroundColor\": \"#ffffff\"\n," +
+                "\"textSize\": 36\n," +
+                "\"textGravity\": 17\n," +
+                "\"textLayoutHeight\": -1\n," +
+                "\"textLayoutWidth\": -1\n," +
                 "\"ignoredValue\": \"This should be ignored.\"\n," +
                 "\"list\": [\"one\", \"two\", \"three\"]\n" +
                 "}";
