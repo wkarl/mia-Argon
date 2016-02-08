@@ -75,9 +75,11 @@ public class ArgonActivity extends PreferenceActivity implements Preference.OnPr
 
     private void addPreference(Field field, PreferenceScreen screen) throws IllegalAccessException {
         Preference preference = PreferenceFactory.createPreference(this, mConfig, field);
-        preference.setOnPreferenceChangeListener(this);
-        screen.addPreference(preference);
-        mFieldMap.put(preference, field);
+        if (preference != null) {
+            preference.setOnPreferenceChangeListener(this);
+            screen.addPreference(preference);
+            mFieldMap.put(preference, field);
+        }
     }
 
     @Override
