@@ -1,1 +1,1 @@
-include ':argon', ':demo'
+include ':argon', ':demo', ':test'

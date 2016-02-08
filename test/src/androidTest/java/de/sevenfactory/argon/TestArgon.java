@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package de.sevenfactory.argondemo;
+package de.sevenfactory.argon;
 
 import android.annotation.TargetApi;
 import android.app.Application;
@@ -33,31 +33,50 @@ import android.service.notification.StatusBarNotification;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.google.gson.Gson;
+
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
+import org.junit.BeforeClass;
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import de.sevenfactory.argon.Argon;
-import de.sevenfactory.argondemo.test.TestActivity;
+import de.sevenfactory.argontest.Config;
+import de.sevenfactory.argontest.TestActivity;
 
 @RunWith(AndroidJUnit4.class)
 public class TestArgon {
-    Application mApplication;
+    private static Application sApplication;
 
-    @Rule
-    public ActivityTestRule<TestActivity> mActivityRule = new ActivityTestRule<>(TestActivity.class);
+    @ClassRule
+    public static ActivityTestRule<TestActivity> sActivityRule = new ActivityTestRule<>(TestActivity.class);
 
-    @Before
-    public void setUp() {
-        mApplication = mActivityRule.getActivity().getApplication();
+    @BeforeClass
+    public static void setUp() {
+        sApplication = sActivityRule.getActivity().getApplication();
+        String json = "{\n" +
+                "\"showHeadline\": true,\n" +
+                "\"text\": \"test\",\n" +
+                "\"intValue\": 20,\n" +
+                "\"longValue\": 200000000000000000,\n" +
+                "\"floatValue\": 0.5823,\n" +
+                "\"listValue\": \"Option 1\"\n," +
+                "\"ignoredValue\": \"This should be ignored.\"\n," +
+                "\"list\": [\"one\", \"two\", \"three\"]\n" +
+                "}";
+
+        Config defaultConfig = new Gson().fromJson(json, Config.class);
+
+        // MockStore configuration is immutable, no need to re-init
+        MockStore store = new MockStore(defaultConfig);
+
+        Argon.init(sApplication, store);
     }
 
     @Test
     public void testRepeatedInit() {
         try {
-            Argon.init(mApplication, Config.class, new Config());
+            Argon.init(sApplication, Config.class, new Config());
         } catch (IllegalStateException e) {
             return;
         }
@@ -67,11 +86,11 @@ public class TestArgon {
     @TargetApi(Build.VERSION_CODES.M)
     @Test
     public void testDebugModeDefaultDisabled() {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             Assert.fail("Notification status can only be tested on devices with API level 23 and up.");
         }
         StatusBarNotification[] notifications =
-                ((NotificationManager) mApplication.getSystemService(Context.NOTIFICATION_SERVICE))
+                ((NotificationManager) sApplication.getSystemService(Context.NOTIFICATION_SERVICE))
                         .getActiveNotifications();
 
         for (StatusBarNotification notification : notifications) {

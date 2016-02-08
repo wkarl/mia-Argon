@@ -22,9 +22,32 @@
  * SOFTWARE.
  */
 
-package de.sevenfactory.argondemo.test;
+package de.sevenfactory.argontest;
 
-import android.support.v7.app.AppCompatActivity;
+import java.util.List;
 
-public class TestActivity extends AppCompatActivity {
+import de.sevenfactory.argon.annotation.Ignore;
+import de.sevenfactory.argon.annotation.Name;
+import de.sevenfactory.argon.annotation.OptionNames;
+import de.sevenfactory.argon.annotation.Options;
+
+public class Config {
+    public boolean showHeadline;
+    public String  text;
+    public int     intValue;
+    public float   floatValue;
+
+    @Name("Long Value")
+    public long longValue;
+
+    @Name("List Values")
+    @Options({"Option 1", "Option 2", "Option 3"})
+    @OptionNames({"Option name 1", "Option name 2", "Option name 3"})
+    public String listValue;
+
+    @Ignore
+    public String ignoredValue;
+
+    // Any type can be used as a field but only primitives and Strings will be displayed as preferences
+    public List<String> list;
 }

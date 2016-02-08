@@ -36,6 +36,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.NotificationCompat;
 
 /**
@@ -74,9 +75,9 @@ public class Argon {
 
     private boolean mDebugModeEnabled;
 
-    private <T> Argon(@NonNull Application application, Class<T> tClass, T defaultConfig) {
+    private <T> Argon(@NonNull Application application, ConfigStore configStore) {
         mContext = application;
-        mConfigStore = new ConfigStore(application, tClass, defaultConfig);
+        mConfigStore = configStore;
         mLifecycleCallbacks = new ArgonActivityLifecycleCallbacks();
         application.registerActivityLifecycleCallbacks(mLifecycleCallbacks);
 
@@ -104,10 +105,15 @@ public class Argon {
      * @throws IllegalStateException if Argon has already been initialized
      */
     public static <T> Argon init(@NonNull Application application, Class<T> tClass, T defaultConfig) {
+        return init(application, new AndroidStore(application, tClass, defaultConfig));
+    }
+
+    @VisibleForTesting
+    static <T> Argon init(@NonNull Application application, @NonNull ConfigStore configStore) {
         if (sInstance != null) {
             throw new IllegalStateException("Argon cannot be re-initialised.");
         }
-        sInstance = new Argon(application, tClass, defaultConfig);
+        sInstance = new Argon(application, configStore);
 
         return sInstance;
     }
@@ -119,8 +125,17 @@ public class Argon {
      * @param config the modified configuration object
      * @param <T>    the type of the configuration object
      */
-    public static <T> void updateConfig(T config) {
-        getInstance().mConfigStore.update(config);
+    public static <T> void updateConfig(@NonNull T config) {
+        if (config == null) {
+            throw new IllegalArgumentException("config cannot be null");
+        }
+        T currentConfig = getInstance().mConfigStore.getConfig();
+        if (currentConfig == null || config.getClass().equals(currentConfig.getClass())) {
+            getInstance().mConfigStore.update(config);
+        } else {
+            throw new IllegalArgumentException("Expected: " + currentConfig.getClass().getName()
+                    + ", actual: " + config.getClass().getName());
+        }
     }
 
     /**
@@ -136,6 +151,7 @@ public class Argon {
 
     /**
      * Enables or disables debug mode. Default is disabled.
+     *
      * @param enabled shows debug notification and options activity if true
      */
     public static void setDebugModeEnabled(boolean enabled) {
@@ -151,6 +167,7 @@ public class Argon {
 
     /**
      * Getter for debug mode status.
+     *
      * @return true if debug mode is enabled
      */
     public static boolean isDebugModeEnabled() {

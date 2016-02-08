@@ -23,6 +23,5 @@
         <activity
             android:name=".DetailsActivity"
             android:label="@string/details"/>
-        <activity android:name=".test.TestActivity"/>
     </application>
 </manifest>
