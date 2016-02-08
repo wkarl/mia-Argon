@@ -64,4 +64,14 @@ public class TestArgon {
         }
         Assert.fail("Config updated with wrong type but no exception thrown.");
     }
+
+    @Test
+    public void testUpdateNull() {
+        try {
+            Argon.updateConfig(null);
+        } catch (IllegalArgumentException e) {
+            return;
+        }
+        Assert.fail("Argon initialized with null value but no exception thrown.");
+    }
 }

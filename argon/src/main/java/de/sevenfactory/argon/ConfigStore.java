@@ -51,6 +51,10 @@ class ConfigStore {
     }
     
     <T> void update(T config) {
+        if (config == null) {
+            throw new IllegalArgumentException("config cannot be null");
+        }
+
         if (mConfig == null || config.getClass().equals(mConfig.getClass())) {
             Gson gson = new Gson();
             mPreferences.edit().putString(JSON_PREFERENCE, gson.toJson(config)).apply();
