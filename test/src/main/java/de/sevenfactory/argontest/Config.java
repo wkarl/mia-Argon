@@ -32,6 +32,11 @@ import de.sevenfactory.argon.annotation.OptionNames;
 import de.sevenfactory.argon.annotation.Options;
 
 public class Config {
+    @Name("Text property")
     public String  text;
+
     public List<String> list;
+
+    @Ignore
+    public int ignored;
 }
