@@ -70,7 +70,3 @@ uploadArchives {
         repository(url: 'file://maven')
     }
 }
-
-dependencies {
-    testCompile 'junit:junit:4.12'
-}

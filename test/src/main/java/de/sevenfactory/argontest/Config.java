@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package de.sevenfactory.argondemo;
+package de.sevenfactory.argontest;
 
 import java.util.List;
 
@@ -32,45 +32,6 @@ import de.sevenfactory.argon.annotation.OptionNames;
 import de.sevenfactory.argon.annotation.Options;
 
 public class Config {
-    @Name("Show text")
-    public boolean showHeadline;
-
-    @Name("Text")
-    public String text;
-
-    @Name("Text color")
-    @Options({"#000000", "#00ff00", "#ff0000"})
-    @OptionNames({"black", "green", "red"})
-    public String textColor;
-
-    @Name("Text size")
-    @Options({"10", "18", "24", "36", "72"})
-    @OptionNames({"10sp", "18sp", "24sp", "36sp", "72sp"})
-    public float textSize;
-
-    @Name("Text gravity")
-    @OptionNames({"default", "CENTER"})
-    @Options({ "51", "17"})
-    public int textGravity;
-
-    @Name("Text layout_height")
-    @Options({"-1", "-2"})
-    @OptionNames({"MATCH_PARENT", "WRAP_CONTENT"})
-    public int textLayoutHeight;
-
-    @Name("Text layout_width")
-    @Options({"-1", "-2"})
-    @OptionNames({"MATCH_PARENT", "WRAP_CONTENT"})
-    public int textLayoutWidth;
-
-    @Name("Background color")
-    @Options({"#ffffff", "#aaaaaa"})
-    @OptionNames({"white", "grey"})
-    public String backgroundColor;
-
-    @Ignore
-    public String ignoredValue;
-
-    // Any type can be used as a field but only primitives and Strings will be displayed as preferences
+    public String  text;
     public List<String> list;
 }

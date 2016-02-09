@@ -22,37 +22,9 @@
  * SOFTWARE.
  */
 
-package de.sevenfactory.argondemo;
+package de.sevenfactory.argontest;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
 
-import de.sevenfactory.argon.Argon;
-
-public class DetailsActivity extends AppCompatActivity {
-    private Config mConfig;
-    
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
-        
-        // Get config from Argon
-        mConfig = Argon.getConfig();
-        
-        // Find views
-        
-        TextView stringView = ((TextView) findViewById(R.id.stringText));
-        TextView intView    = ((TextView) findViewById(R.id.integerText));
-        TextView floatView  = ((TextView) findViewById(R.id.floatText));
-        TextView longView   = ((TextView) findViewById(R.id.longText));
-        TextView listView   = ((TextView) findViewById(R.id.listText));
-
-        stringView.setText(mConfig.text);
-        intView.setText(String.valueOf(mConfig.intValue));
-        floatView.setText(String.valueOf(mConfig.floatValue));
-        longView.setText(String.valueOf(mConfig.longValue));
-        listView.setText(String.valueOf(mConfig.listValue));
-    }
+public class TestActivity extends AppCompatActivity {
 }

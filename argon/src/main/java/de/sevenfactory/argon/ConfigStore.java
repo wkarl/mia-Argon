@@ -24,59 +24,10 @@
 
 package de.sevenfactory.argon;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+public interface ConfigStore {
+    <T> void update(@NonNull T config);
 
-class ConfigStore {
-    private static final String PREFERENCE_FILE = "de.sevenfactory.argon.PREFERENCES";
-    private static final String JSON_PREFERENCE = "JSON_CONFIG";
-    
-    private final SharedPreferences mPreferences;
-    private       Object            mConfig;
-    
-    <T> ConfigStore(Context context, Class<T> tClass, T defaultConfig) {
-        mPreferences = context.getSharedPreferences(PREFERENCE_FILE, Context.MODE_PRIVATE);
-        String savedJson   = mPreferences.getString(JSON_PREFERENCE, null);
-        T      savedConfig = savedJson == null ? null : fromJson(savedJson, tClass);
-        
-        if (savedConfig == null) {
-            update(defaultConfig);
-            savedConfig = defaultConfig;
-        }
-        
-        mConfig = savedConfig;
-    }
-    
-    <T> void update(@NonNull T config) {
-        if (config == null) {
-            throw new IllegalArgumentException("config cannot be null");
-        }
-
-        if (mConfig == null || config.getClass().equals(mConfig.getClass())) {
-            Gson gson = new Gson();
-            mPreferences.edit().putString(JSON_PREFERENCE, gson.toJson(config)).apply();
-        } else {
-            throw new IllegalArgumentException("Expected: " + mConfig.getClass().getName()
-                    + ", actual: " + config.getClass().getName());
-        }
-    }
-    
-    private <T> T fromJson(String json, Class<T> clazz) {
-        try {
-            Gson gson = new Gson();
-            return gson.fromJson(json, clazz);
-        } catch (JsonSyntaxException e) {
-            // Use default config instead
-            return null;
-        }
-    }
-    
-    @SuppressWarnings("unchecked")
-    <T> T getConfig() {
-        return (T) mConfig;
-    }
+    <T> T getConfig();
 }
