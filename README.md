@@ -3,7 +3,7 @@
 
 ![logo](https://github.com/7factory/mia-Argon/raw/gh-pages/images/argon_400px.png?raw=true "Argon")
 
-Fast integration of custom configuration and debug functionality in your app.
+Fast integration of custom configuration and debug functionality in your Android app.
 
 Argon maintains a singleton instance that holds, persists and updates a user defined configuration object of any type.
 
