@@ -24,14 +24,10 @@
 
 package de.sevenfactory.argon;
 
-import android.annotation.TargetApi;
 import android.app.Application;
-import android.app.NotificationManager;
-import android.content.Context;
-import android.os.Build;
-import android.service.notification.StatusBarNotification;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.widget.ListAdapter;
 
 import com.google.gson.Gson;
 
@@ -42,14 +38,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import de.sevenfactory.argontest.Config;
-import de.sevenfactory.argontest.TestActivity;
 
 @RunWith(AndroidJUnit4.class)
-public class TestArgon {
+public class TestArgonActivity {
     private static Application sApplication;
 
     @ClassRule
-    public static ActivityTestRule<TestActivity> sActivityTestRule = new ActivityTestRule<>(TestActivity.class);
+    public static ActivityTestRule<ArgonActivity> sActivityTestRule = new ActivityTestRule<>(ArgonActivity.class);
 
     @BeforeClass
     public static void setUp() {
@@ -74,58 +69,25 @@ public class TestArgon {
     }
 
     @Test
-    public void testRepeatedInit() {
-        try {
-            Argon.init(sApplication, Config.class, new Config());
-        } catch (IllegalStateException e) {
-            return;
-        }
-        Assert.fail("Argon initialized twice but no exception thrown.");
-    }
+    public void testIgnoredFields() {
+        ListAdapter adapter = sActivityTestRule.getActivity().getListView().getAdapter();
+        for (int i = 0; i < adapter.getCount(); i++) {
+            // Explicitly ignored
+            Assert.assertNotEquals("ignored", adapter.getItem(i).toString());
 
-    @TargetApi(Build.VERSION_CODES.M)
-    @Test
-    public void testDebugModeDefaultDisabled() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            Assert.fail("Notification status can only be tested on devices with API level 23 and up.");
-        }
-        StatusBarNotification[] notifications =
-                ((NotificationManager) sApplication.getSystemService(Context.NOTIFICATION_SERVICE))
-                        .getActiveNotifications();
-
-        for (StatusBarNotification notification : notifications) {
-            Assert.assertNotEquals(getClass().getPackage().getName(), notification.getPackageName());
+            // Implicitly ignored (only primitive type and String options can be displayed)
+            Assert.assertNotEquals("list", adapter.getItem(i).toString());
         }
     }
 
     @Test
-    public void testUpdateConfigInvalid() {
-        try {
-            Argon.updateConfig("test");
-        } catch (IllegalArgumentException e) {
-            return;
+    public void testNameAnnotation() {
+        ListAdapter adapter = sActivityTestRule.getActivity().getListView().getAdapter();
+        for (int i = 0; i < adapter.getCount(); i++) {
+            if ("Text property".equals(adapter.getItem(i).toString())) {
+                return;
+            }
         }
-        Assert.fail("Config updated with wrong type but no exception thrown.");
-    }
-
-    @Test
-    public void testUpdateNull() {
-        Config config = new Config();
-        config.text = "test";
-
-        Argon.updateConfig(config);
-
-        try {
-            Argon.updateConfig(null);
-        } catch (IllegalArgumentException e) {
-            return;
-        }
-        Assert.fail("Argon initialized with null value but no exception thrown.");
-    }
-
-    @Test
-    public void testListType() {
-        Config config = Argon.getConfig();
-        Assert.assertEquals(3, config.list.size());
+        Assert.fail("Annotated preference not found: \"Text property\"");
     }
 }
