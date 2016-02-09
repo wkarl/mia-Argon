@@ -41,7 +41,7 @@ public class ArgonDemoApplication extends Application {
                 "\"textColor\": \"#000000\"\n," +
                 "\"backgroundColor\": \"#ffffff\"\n," +
                 "\"textSize\": 36\n," +
-                "\"textGravity\": 17\n," +
+                "\"textGravity\": 51\n," +
                 "\"textLayoutHeight\": -1\n," +
                 "\"textLayoutWidth\": -1\n," +
                 "\"ignoredValue\": \"This should be ignored.\"\n," +

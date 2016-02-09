@@ -49,8 +49,8 @@ public class Config {
     public float textSize;
 
     @Name("Text gravity")
-    @OptionNames({"CENTER", "default"})
-    @Options({"17", "51"})
+    @OptionNames({"default", "CENTER"})
+    @Options({ "51", "17"})
     public int textGravity;
 
     @Name("Text layout_height")
