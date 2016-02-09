@@ -24,87 +24,33 @@
 
 package de.sevenfactory.argon;
 
-import android.annotation.TargetApi;
-import android.app.Application;
-import android.app.NotificationManager;
-import android.content.Context;
-import android.os.Build;
-import android.service.notification.StatusBarNotification;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.ListAdapter;
 
-import com.google.gson.Gson;
-
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import de.sevenfactory.argontest.Config;
-import de.sevenfactory.argontest.TestActivity;
-
 @RunWith(AndroidJUnit4.class)
 public class TestArgon {
-    private static Application sApplication;
-
-    @ClassRule
-    public static ActivityTestRule<TestActivity> sActivityTestRule = new ActivityTestRule<>(TestActivity.class);
 
     @Rule
     public ActivityTestRule<ArgonActivity> mArgonActivityTestRule = new ActivityTestRule<>(ArgonActivity.class);
     private ArgonActivity mArgonActivity;
-
-    @BeforeClass
-    public static void initArgon() {
-        sApplication = sActivityTestRule.getActivity().getApplication();
-        String json = "{\n" +
-                "\"showHeadline\": true,\n" +
-                "\"text\": \"test\",\n" +
-                "\"intValue\": 20,\n" +
-                "\"longValue\": 200000000000000000,\n" +
-                "\"floatValue\": 0.5823,\n" +
-                "\"listValue\": \"Option 1\"\n," +
-                "\"ignoredValue\": \"This should be ignored.\"\n," +
-                "\"list\": [\"one\", \"two\", \"three\"]\n" +
-                "}";
-
-        Config defaultConfig = new Gson().fromJson(json, Config.class);
-
-        // MockStore configuration is immutable, no need to re-init
-        MockStore store = new MockStore(defaultConfig);
-
-        Argon.init(sApplication, store);
-    }
 
     /* Argon tests */
 
     @Test
     public void testRepeatedInit() {
         try {
-            Argon.init(sApplication, Config.class, new Config());
+            Argon.init(mArgonActivity.getApplication(), Config.class, new Config());
         } catch (IllegalStateException e) {
             return;
         }
         Assert.fail("Argon initialized twice but no exception thrown.");
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    @Test
-    public void testDebugModeDefaultDisabled() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            Assert.fail("Notification status can only be tested on devices with API level 23 and up.");
-        }
-        StatusBarNotification[] notifications =
-                ((NotificationManager) sApplication.getSystemService(Context.NOTIFICATION_SERVICE))
-                        .getActiveNotifications();
-
-        for (StatusBarNotification notification : notifications) {
-            Assert.assertNotEquals(getClass().getPackage().getName(), notification.getPackageName());
-        }
     }
 
     @Test
