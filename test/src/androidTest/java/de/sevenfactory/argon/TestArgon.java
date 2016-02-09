@@ -32,12 +32,15 @@ import android.os.Build;
 import android.service.notification.StatusBarNotification;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.widget.ListAdapter;
 
 import com.google.gson.Gson;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -51,8 +54,12 @@ public class TestArgon {
     @ClassRule
     public static ActivityTestRule<TestActivity> sActivityTestRule = new ActivityTestRule<>(TestActivity.class);
 
+    @Rule
+    public ActivityTestRule<ArgonActivity> mArgonActivityTestRule = new ActivityTestRule<>(ArgonActivity.class);
+    private ArgonActivity mArgonActivity;
+
     @BeforeClass
-    public static void setUp() {
+    public static void initArgon() {
         sApplication = sActivityTestRule.getActivity().getApplication();
         String json = "{\n" +
                 "\"showHeadline\": true,\n" +
@@ -72,6 +79,8 @@ public class TestArgon {
 
         Argon.init(sApplication, store);
     }
+
+    /* Argon tests */
 
     @Test
     public void testRepeatedInit() {
@@ -127,5 +136,35 @@ public class TestArgon {
     public void testListType() {
         Config config = Argon.getConfig();
         Assert.assertEquals(3, config.list.size());
+    }
+
+    @Before
+    public void setUp() {
+        mArgonActivity = mArgonActivityTestRule.getActivity();
+    }
+
+    /* ArgonActivity tests */
+
+    @Test
+    public void testIgnoredFields() {
+        ListAdapter adapter = mArgonActivity.getListView().getAdapter();
+        for (int i = 0; i < adapter.getCount(); i++) {
+            // Explicitly ignored
+            Assert.assertNotEquals("ignored", adapter.getItem(i).toString());
+
+            // Implicitly ignored (only primitive type and String options can be displayed)
+            Assert.assertNotEquals("list", adapter.getItem(i).toString());
+        }
+    }
+
+    @Test
+    public void testNameAnnotation() {
+        ListAdapter adapter = mArgonActivity.getListView().getAdapter();
+        for (int i = 0; i < adapter.getCount(); i++) {
+            if ("Text property".equals(adapter.getItem(i).toString())) {
+                return;
+            }
+        }
+        Assert.fail("Annotated preference not found: \"Text property\"");
     }
 }
