@@ -3,6 +3,11 @@ ext {
     findbugsEnabled = true
     findbugsRules   = "${project.rootDir}/advisor/rules/findbugs-rules.xml"
     findbugsOutput  = "${project.rootDir}/advisor/reports/findbugs/findbugs-report.html"
+    
+    // Pmd
+    pmdEnabled = true
+    pmdRules   = "${project.rootDir}/advisor/rules/pmd-rules.xml"
+    pmdOutput  = "${project.rootDir}/advisor/reports/pmd/pmd-report.html"
 
     // Lint
     lintEnabled = true
