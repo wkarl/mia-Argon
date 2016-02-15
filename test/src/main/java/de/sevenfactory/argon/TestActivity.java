@@ -22,21 +22,9 @@
  * SOFTWARE.
  */
 
-package de.sevenfactory.argontest;
+package de.sevenfactory.argon;
 
-import java.util.List;
+import android.support.v7.app.AppCompatActivity;
 
-import de.sevenfactory.argon.annotation.Ignore;
-import de.sevenfactory.argon.annotation.Name;
-import de.sevenfactory.argon.annotation.OptionNames;
-import de.sevenfactory.argon.annotation.Options;
-
-public class Config {
-    @Name("Text property")
-    public String  text;
-
-    public List<String> list;
-
-    @Ignore
-    public int ignored;
+public class TestActivity extends AppCompatActivity {
 }
