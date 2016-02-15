@@ -57,16 +57,7 @@ android {
 dependencies {
     compile 'com.jakewharton:process-phoenix:1.0.2'
     compile 'com.google.code.gson:gson:2.5'
-    
     compile 'com.android.support:appcompat-v7:23.1.1'
 }
 
-uploadArchives {
-    repositories.mavenDeployer {
-        pom.groupId = 'de.sevenfactory'
-        pom.artifactId = project.name
-        pom.version = android.defaultConfig.versionName
-
-        repository(url: 'file://maven')
-    }
 }
