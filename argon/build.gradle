@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
+apply plugin: 'com.thomaspaulmann.documentor'
 apply from: 'https://raw.githubusercontent.com/thomaspaulmann/Advisor/release-1.2/advisor.gradle'
 
 android {
@@ -33,25 +33,6 @@ android {
             }
         }
     }
-    
-    buildTypes {
-        libraryVariants.all { variant ->
-            task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
-                description "Generates Javadoc for $variant.name."
-                source = variant.javaCompile.source
-                destinationDir = file("../javadoc/")
-                ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
-                classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
-                options {
-                    links "http://docs.oracle.com/javase/7/docs/api/"
-                    linksOffline "http://d.android.com/reference", "${android.sdkDirectory}/docs/reference"
-                }
-                options.addStringOption('Xdoclint:none', '-quiet')
-                exclude '**/BuildConfig.java'
-                exclude '**/R.java'
-            }
-        }
-    }
 }
 
 dependencies {
@@ -60,4 +41,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
 }
 
+// Config Documentor
+documentor {
+    outputDir = "${project.projectDir}/javadoc"
 }
